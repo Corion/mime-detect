@@ -1,13 +1,43 @@
 package File::MimeInfo::SharedMimeInfoXML;
 use Moo;
+use if $] < 5.022, 'Filter::signatures';
 use feature 'signatures';
 no warnings 'experimental::signatures';
 use Carp qw(croak);
 use XML::LibXML;
-  
-use vars '$XPC';
-$XPC = XML::LibXML::XPathContext->new;
-$XPC->registerNs('x', 'http://www.freedesktop.org/standards/shared-mime-info');
+
+use vars '$VERSION';
+$VERSION = '0.01';
+
+=head1 NAME
+
+File::MimeInfo::SharedMimeInfoXML - file type identification from the freedesktop.org database
+
+=head1 TO DO
+
+before release:
+
+* Allow for aggregation of multiple XML files/databases
+
+* Bundle the XML inline
+
+* Write updater for updating the distributed XML file
+
+* Make C<mime-info> commandline compatible with C<file>
+
+=head1 SYNOPSIS
+
+  my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+
+  for my $file (@ARGV) {
+    print sprintf "%s: %s\n", $file, $_->mime_type
+        for $mime->mimetype($file);
+  };
+
+=head1 METHODS
+
+=cut
+
 
 has 'typeclass' => (
     is => 'ro',
@@ -25,16 +55,48 @@ has 'mime_types' => (
     default => sub { {} },
 );
 
-sub read_file( $self, $file ) {
-    my $p = XML::LibXML->new();
-    my $doc = $p->parse_file( $file );
-    $self->reparse($doc);
+has 'xpc' => (
+    is => 'lazy',
+    default => sub {
+        my $XPC = XML::LibXML::XPathContext->new;
+        $XPC->registerNs('x', 'http://www.freedesktop.org/standards/shared-mime-info');
+        $XPC
+    },
+);
+
+=head2 C<< $mime->read_database @files >>
+
+  $mime->read_database('mymime/mymime.xml','');
+
+If you want some different rules than the default
+database included with the distribution, you can replace the
+database by a database stored in another file.
+Passing in multiple filenames will join the multiple
+databases. Duplicate file type definitions will not be detected
+and will be returned as duplicates.
+
+The rules will be sorted according to the priority specified in the database
+file(s).
+
+=cut
+
+sub read_database( $self, @files ) {
+    my @types = map {
+        my $p = XML::LibXML->new();
+        my $doc = $p->parse_file( $_ );
+        $self->_parse_types($doc);
+    } @files;
+    $self->reparse(@types);
 }
 
-sub reparse($self, $document) {
-    my @types = sort { ($b->priority || 50 ) <=> ($a->priority || 50 ) }
+sub _parse_types( $self, $document ) {
+    $self->xpc->findnodes('/x:mime-info/x:mime-type',$document);
+}
+
+sub reparse($self, @types) {
+    @types = sort { ($b->priority || 50 ) <=> ($a->priority || 50 ) }
                 map { $self->fragment_to_type( $_ ) }
-                $XPC->findnodes('/x:mime-info/x:mime-type',$document);
+                @types;
     $self->types(\@types);
 
     # Build the map from mime_type to object
@@ -61,20 +123,19 @@ sub reparse($self, $document) {
             };
         };
     };
-
 };
 
 sub fragment_to_type( $self, $frag ) {
     my $mime_type = $frag->getAttribute('type');
-    my $comment = $XPC->findnodes('./x:comment', $frag);
-    my @globs = $XPC->findnodes('./x:glob', $frag);
-    (my $superclass) = $XPC->findnodes('./x:sub-class-of',$frag);
+    my $comment = $self->xpc->findnodes('./x:comment', $frag);
+    my @globs = $self->xpc->findnodes('./x:glob', $frag);
+    (my $superclass) = $self->xpc->findnodes('./x:sub-class-of',$frag);
     $superclass = $superclass->getAttribute('type')
         if $superclass;
     
-    my @aliases = map { $_->getAttribute('type') } $XPC->findnodes('./x:alias',$frag);
+    my @aliases = map { $_->getAttribute('type') } $self->xpc->findnodes('./x:alias',$frag);
 
-    (my $magic) = $XPC->findnodes('./x:magic', $frag);
+    (my $magic) = $self->xpc->findnodes('./x:magic', $frag);
     my( $priority, @rules );
     if( $magic ) {
         $priority = $magic->getAttribute('priority');

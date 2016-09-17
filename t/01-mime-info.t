@@ -3,7 +3,7 @@ use strict;
 use Test::More tests => 8;
 use File::MimeInfo::SharedMimeInfoXML;
 my $mime = File::MimeInfo::SharedMimeInfoXML->new();
-$mime->read_file('t/freedesktop.org.xml');
+$mime->read_database('t/freedesktop.org.xml');
 
 my $pgp = $mime->mime_types->{'application/pgp-signature'};
 
