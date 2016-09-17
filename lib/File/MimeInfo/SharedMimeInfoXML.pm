@@ -193,7 +193,19 @@ sub parse_rule( $self, $rule ) {
     };
 }
 
-sub mimetype( $self, $file ) {
+=head2 C<< $mime->mimetypes >>
+
+    my @types = $mime->mimetypes( 'some/file' );
+    for( @types ) {
+        print $type->mime_type, "\n";
+    };
+
+Returns the list of mimetypes according to their likelyhood.
+The first type is the most likely.
+
+=cut
+
+sub mimetypes( $self, $file ) {
     if( ! ref $file) {
         open my $fh, '<', $file
             or croak "Couldn't read '$file': $!";
@@ -219,7 +231,22 @@ sub mimetype( $self, $file ) {
     };
 
     # Now, sort by priority of the rules that matched?!
-    @candidates;
+    reverse @candidates;
+}
+
+=head2 C<< $mime->mimetype >>
+
+    my $type = $mime->mimetype( 'some/file' );
+    print $type->mime_type, "\n"
+        if $type;
+
+Returns the most likely type of a file. Returns C<undef>
+if no file type can be determined.
+
+=cut
+
+sub mimetype( $self, $file ) {
+    ($self->mimetypes($file))[0]
 }
 
 package File::MimeInfo::SharedMimeInfoXML::Buffer;

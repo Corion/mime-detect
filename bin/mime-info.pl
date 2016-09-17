@@ -11,6 +11,7 @@ if( $^O =~ /mswin/i ) {
 };
 
 for my $file (@ARGV) {
-    print sprintf "%s: %s\n", $file, $_->mime_type
-        for $mime->mimetype($file);
+    my $t = $mime->mimetype($file);
+    $t = $t ? $t->mime_type : "<unknown>";
+    print sprintf "%s: %s\n", $file, $t;
 }
