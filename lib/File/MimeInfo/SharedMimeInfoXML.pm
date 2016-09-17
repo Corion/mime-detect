@@ -17,13 +17,15 @@ File::MimeInfo::SharedMimeInfoXML - file type identification from the freedeskto
 
 before release:
 
-* Allow for aggregation of multiple XML files/databases
+* Find a better name or third part
+
+* Revisit API compatibility with other MimeInfo modules
 
 * Bundle the XML inline
 
 * Write updater for updating the distributed XML file
 
-* Make C<mime-info> commandline compatible with C<file>
+* Make C<mime-info.pl> commandline compatible with C<file>
 
 =head1 SYNOPSIS
 
