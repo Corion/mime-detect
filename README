@@ -1,0 +1,41 @@
+NAME
+
+    File::MimeInfo::SharedMimeInfoXML - file type identification from the
+    freedesktop.org database
+
+TO DO
+
+    before release:
+
+    * Allow for aggregation of multiple XML files/databases
+
+    * Bundle the XML inline
+
+    * Write updater for updating the distributed XML file
+
+    * Make mime-info commandline compatible with file
+
+SYNOPSIS
+
+      my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+    
+      for my $file (@ARGV) {
+        print sprintf "%s: %s\n", $file, $_->mime_type
+            for $mime->mimetype($file);
+      };
+
+METHODS
+
+ $mime->read_database @files
+
+      $mime->read_database('mymime/mymime.xml','');
+
+    If you want some different rules than the default database included
+    with the distribution, you can replace the database by a database
+    stored in another file. Passing in multiple filenames will join the
+    multiple databases. Duplicate file type definitions will not be
+    detected and will be returned as duplicates.
+
+    The rules will be sorted according to the priority specified in the
+    database file(s).
+
