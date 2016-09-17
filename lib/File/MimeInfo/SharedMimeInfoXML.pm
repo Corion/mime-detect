@@ -84,7 +84,7 @@ has 'xpc' => (
 
 =head2 C<< $mime->read_database @files >>
 
-  $mime->read_database('mymime/mymime.xml','');
+  $mime->read_database('mymime/mymime.xml','/usr/share/freedesktop.org/mime.xml');
 
 If you want some different rules than the default
 database included with the distribution, you can replace the
