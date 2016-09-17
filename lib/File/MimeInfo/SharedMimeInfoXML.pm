@@ -359,9 +359,9 @@ sub BUILD($self, $args) {
                 'n' => "\n",
                 'r' => "\r",
                 't' => "\t",
-                '\\' => "\\",
+                "\\" => "\\",
             );
-            $value =~ s!\\([nrt\\]|0\d\d)!$replace{$1} || chr(oct($1)) !ge;
+            $value =~ s!\\([nrt\\]|[0-7][0-7][0-7])!$replace{$1} || chr(oct($1)) !ge;
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'little32' ) {
             $value = pack 'V', hex($rule->{value});

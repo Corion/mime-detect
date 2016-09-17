@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 8;
+use Test::More tests => 9;
 use File::MimeInfo::SharedMimeInfoXML;
 my $mime = File::MimeInfo::SharedMimeInfoXML->new();
 $mime->read_database('t/freedesktop.org.xml');
@@ -41,3 +41,6 @@ some random gibberish
 qweoibvsjewrij
 PERL
 };
+
+my $sevenZip = $mime->known_types->{'application/x-7z-compressed'};
+ok $sevenZip->matches("7z\274\257'\34\0"), "We identify 7zip files correctly";
