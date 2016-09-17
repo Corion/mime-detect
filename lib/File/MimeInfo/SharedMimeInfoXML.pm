@@ -224,7 +224,7 @@ sub mimetype( $self, $file ) {
 
 package File::MimeInfo::SharedMimeInfoXML::Buffer;
 use Moo;
-use if $] < 5.022_000, 'Filter::signatures';
+use if $] < 5.022, 'Filter::signatures';
 use feature 'signatures';
 no warnings 'experimental::signatures';
 use Fcntl 'SEEK_SET';
@@ -283,6 +283,7 @@ sub request($self,$offset,$length) {
 package File::MimeInfo::SharedMimeInfoXML::Type;
 use strict;
 use Moo;
+use if $] < 5.022, 'Filter::signatures';
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
