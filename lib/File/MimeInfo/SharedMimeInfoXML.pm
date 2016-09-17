@@ -110,13 +110,13 @@ sub read_database( $self, @files ) {
 }
 
 sub _parse_types( $self, $document ) {
+    map { $self->fragment_to_type( $_ ) }
     $self->xpc->findnodes('/x:mime-info/x:mime-type',$document);
 }
 
 sub reparse($self, @types) {
     @types = sort { ($b->priority || 50 ) <=> ($a->priority || 50 ) }
-                map { $self->fragment_to_type( $_ ) }
-                @types;
+             @types;
     $self->types(\@types);
 
     # Build the map from mime_type to object
