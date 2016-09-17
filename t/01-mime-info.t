@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 9;
+use Test::More tests => 10;
 use File::MimeInfo::SharedMimeInfoXML;
 my $mime = File::MimeInfo::SharedMimeInfoXML->new();
 $mime->read_database('t/freedesktop.org.xml');
@@ -28,8 +28,6 @@ my $perl = $mime->known_types->{'application/x-perl'};
 ok $perl, "We find a type for 'application/x-perl'";
    $superclass = $perl->superclass;
 if( !ok $superclass, "We have a superclass") {
-    use Data::Dumper;
-    diag Dumper $perl;
     SKIP: { skip "We didn't even find a superclass", 1 };
 } else {
     is $perl->superclass->mime_type, 'application/x-executable', "It's an executable file";
@@ -43,4 +41,9 @@ PERL
 };
 
 my $sevenZip = $mime->known_types->{'application/x-7z-compressed'};
-ok $sevenZip->matches("7z\274\257'\34\0"), "We identify 7zip files correctly";
+
+if( !ok $sevenZip, "We find a type for 'application/x-7z-compressed'") {
+    SKIP: { skip "We didn't even find a type for 'application/x-7z-compressed'", 1 };
+} else {
+    ok $sevenZip->matches("7z\274\257'\34\0"), "We identify 7zip files correctly";
+}
