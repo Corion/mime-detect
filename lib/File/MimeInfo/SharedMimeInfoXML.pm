@@ -152,7 +152,7 @@ sub fragment_to_type( $self, $frag ) {
     (my $superclass) = $self->xpc->findnodes('./x:sub-class-of',$frag);
     $superclass = $superclass->getAttribute('type')
         if $superclass;
-    
+
     my @aliases = map { $_->getAttribute('type') } $self->xpc->findnodes('./x:alias',$frag);
 
     (my $magic) = $self->xpc->findnodes('./x:magic', $frag);
@@ -165,7 +165,7 @@ sub fragment_to_type( $self, $frag ) {
             $rule = $self->parse_rule( $rule );
         };
     };
-    
+
     $self->typeclass->new(
         aliases => \@aliases,
         priority => $priority,
@@ -181,10 +181,10 @@ sub parse_rule( $self, $rule ) {
     my $value = $rule->getAttribute('value');
     my $offset = $rule->getAttribute('offset');
     my $type = $rule->getAttribute('type');
-    
+
     my @and = map { $self->parse_rule( $_ ) } grep { $_->nodeType != 3 } $rule->childNodes;
     my $and = @and ? \@and : undef;
-    
+
     return {
         value => $value,
         offset => $offset,
@@ -202,13 +202,13 @@ sub mimetype( $self, $file ) {
     };
     my $buffer = File::MimeInfo::SharedMimeInfoXML::Buffer->new(fh => $file);
     $buffer->request(0,4096); # should be enough for most checks
-    
+
     my @candidates;
     # We should respect the priorities here...
     my $m = $self->mime_types;
-    
+
     my @types = @{ $self->{types} };
-    
+
     # Let's just hope we don't have infinite subtype loops in the XML file
     for my $k (@types) {
         my $t = ref $k ? $k : $m->{ $k };
@@ -217,7 +217,7 @@ sub mimetype( $self, $file ) {
             push @candidates, $m->{$t->mime_type};
         };
     };
-    
+
     # Now, sort by priority of the rules that matched?!
     @candidates;
 }
@@ -250,12 +250,12 @@ has 'fh' => (
 
 sub request($self,$offset,$length) {
     my $fh = $self->fh;
-    
+
     if( $offset =~ m/^(\d+):(\d+)$/) {
         $offset = $1;
         $length += $2;
     };
-    
+
     if(     $offset < $self->offset
         or  $self->offset+$self->length < $offset+$length ) {
         # We need to refill the buffer
@@ -268,13 +268,13 @@ sub request($self,$offset,$length) {
             $fh->seek($offset, SEEK_SET);
             $fh->read($buffer, $length);
         }
-        
+
         # Setting all three in one go would be more object-oriented ;)
         $self->offset($offset);
         $self->length($length);
         $self->buffer($buffer);
     };
-    
+
     $self->buffer
 }
 
@@ -320,35 +320,11 @@ has 'superclass' => (
     default => undef,
 );
 
-sub compile($self,$fragment) {
-    die "No direct-to-Perl compilation implemented yet.";
-}
-
-sub matches($self, $buffer, $rules = $self->rules) {
-    my @rules = @$rules;
-    
-    # Superclasses are for information only
-    #if( $self->superclass and $self->superclass->mime_type !~ m!^text/!) {
-    #    return if ! $self->superclass->matches($buffer);
-    #};
-
-    if( !ref $buffer) {
-        # Upgrade to an in-memory filehandle
-        my $_buffer = $buffer;
-        open my $fh, '<', \$_buffer
-            or die "Couldn't open in-memory handle!";
-        binmode $fh;
-        $buffer = File::MimeInfo::SharedMimeInfoXML::Buffer->new(fh => $fh);
-    };
-
-    # XXX everything is a text/plain file...
-    return 1 if $self->mime_type eq 'text/plain';
-
-    my $matches;
-    for my $rule (@rules) {
-        
+sub BUILD($self, $args) {
+    # Preparse the rules here:
+    for my $rule (@{ $args->{rules} }) {
         my $value = $rule->{value};
-        
+
         # This should go into the part reading the XML, not into the part
         # evaluating the rules
         if( ref $rule eq 'HASH' and $rule->{type} eq 'string' ) {
@@ -368,7 +344,7 @@ sub matches($self, $buffer, $rules = $self->rules) {
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'big32' ) {
             $value = pack 'N', hex($rule->{value});
-            
+
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'big16' ) {
             $value = pack 'n', hex($rule->{value});
 
@@ -382,9 +358,42 @@ sub matches($self, $buffer, $rules = $self->rules) {
             $value = pack 'c', hex($rule->{value});
 
         } else {
-            use Data::Dumper;
-            die "Unknown rule format: " . Dumper $rule;
+            die "Unknown rule type '$rule->{type}'";
         };
+
+        $rule->{type} = 'string';
+        $rule->{value} = $value;
+    }
+}
+
+sub compile($self,$fragment) {
+    die "No direct-to-Perl compilation implemented yet.";
+}
+
+sub matches($self, $buffer, $rules = $self->rules) {
+    my @rules = @$rules;
+
+    # Superclasses are for information only
+    #if( $self->superclass and $self->superclass->mime_type !~ m!^text/!) {
+    #    return if ! $self->superclass->matches($buffer);
+    #};
+
+    if( !ref $buffer) {
+        # Upgrade to an in-memory filehandle
+        my $_buffer = $buffer;
+        open my $fh, '<', \$_buffer
+            or die "Couldn't open in-memory handle!";
+        binmode $fh;
+        $buffer = File::MimeInfo::SharedMimeInfoXML::Buffer->new(fh => $fh);
+    };
+
+    # XXX everything is a text/plain file...
+    return 1 if $self->mime_type eq 'text/plain';
+
+    my $matches;
+    for my $rule (@rules) {
+
+        my $value = $rule->{value};
 
         my $buf = $buffer->request($rule->{offset}, length $value);
         if( $rule->{offset} =~ m!^(\d+):(\d+)$! ) {
