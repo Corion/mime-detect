@@ -387,8 +387,11 @@ sub matches($self, $buffer, $rules = $self->rules) {
         $buffer = File::MimeInfo::SharedMimeInfoXML::Buffer->new(fh => $fh);
     };
 
-    # XXX everything is a text/plain file...
-    return 1 if $self->mime_type eq 'text/plain';
+    # Hardcoded rule for plain text detection...
+    if( $self->mime_type eq 'text/plain') {
+        my $buf = $buffer->request(0,256);
+        return $buf !~ /[\x00-\x09\x0b\x0c\x0e-\x1f\x80-\xff]/;
+    };
 
     my $matches;
     for my $rule (@rules) {
