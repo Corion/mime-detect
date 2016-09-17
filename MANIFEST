@@ -1,4 +1,5 @@
 bin/mime-info.pl
+Changes
 INSTALL
 lib/File/MimeInfo/SharedMimeInfoXML.pm
 Makefile.PL
