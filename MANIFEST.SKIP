@@ -1,0 +1,16 @@
+.cvsignore$
+^.lwpcookies
+^.releaserc
+^blib/
+^File-MimeInfo-SharedMimeInfoXML-.*
+CVS/
+^pm_to_blib
+.tar.gz$
+.bak$
+.swp$
+.old$
+^Makefile$
+^cvstest$
+^blibdirs$
+bin/.*.sqlite$
+^.git

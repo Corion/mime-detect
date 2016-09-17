@@ -1,0 +1,13 @@
+bin/mime-info.pl
+INSTALL
+lib/File/MimeInfo/SharedMimeInfoXML.pm
+Makefile.PL
+MANIFEST
+MANIFEST.SKIP
+MYMETA.json
+MYMETA.yml
+README
+README.mkdn
+t/01-mime-info.t
+t/02-identify.t
+t/freedesktop.org.xml
