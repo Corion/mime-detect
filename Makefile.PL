@@ -51,8 +51,9 @@ WriteMakefile1(
         'ExtUtils::MakeMaker' => 0,
     },
     'PREREQ_PM'    => { 'XML::LibXML' => 0,
-                        'Moo'         => 0,
+                        'Moo'         => 2,
                         'Carp'        => 0,
+                        'Fcntl'       => 0,
                         'if'          => 0,
                         @signatures,
     }, # e.g., Module::Name => 1.1
