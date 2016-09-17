@@ -4,8 +4,9 @@ use Test::More tests => 3;
 use File::MimeInfo::SharedMimeInfoXML;
 use Data::Dumper;
 
-my $mime = File::MimeInfo::SharedMimeInfoXML->new();
-$mime->read_database('t/freedesktop.org.xml');
+my $mime = File::MimeInfo::SharedMimeInfoXML->new(
+    database => ['t/freedesktop.org.xml'],
+);
 
 my @type = $mime->mimetype($0);
 

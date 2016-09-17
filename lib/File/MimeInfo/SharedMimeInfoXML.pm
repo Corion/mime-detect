@@ -36,8 +36,26 @@ before release:
 
 =head1 METHODS
 
+=head2 C<< File::MimeInfo::SharedMimeInfoXML->new( ... ) >>
+
+  my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+
+Creates a new instance and reads the database distributed with this module.
+
+  my $mime = File::MimeInfo::SharedMimeInfoXML->new(
+      database => [
+          '/usr/share/freedesktop.org/mimeinfo.xml',
+          't/mimeinfo.xml',
+      ],
+  );
+
 =cut
 
+sub BUILD( $self, $args ) {
+    if( ref $args->{database} and @{ $args->{database} }) {
+        $self->read_database( @{ $args->{database}} )
+    };
+}
 
 has 'typeclass' => (
     is => 'ro',
