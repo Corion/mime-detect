@@ -219,6 +219,7 @@ sub mimetypes( $self, $file ) {
     # We should respect the priorities here...
     my $m = $self->mime_types;
 
+    # Already sorted by priority
     my @types = @{ $self->{types} };
 
     # Let's just hope we don't have infinite subtype loops in the XML file
@@ -230,8 +231,7 @@ sub mimetypes( $self, $file ) {
         };
     };
 
-    # Now, sort by priority of the rules that matched?!
-    reverse @candidates;
+    @candidates;
 }
 
 =head2 C<< $mime->mimetype >>
