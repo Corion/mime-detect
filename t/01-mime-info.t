@@ -5,7 +5,7 @@ use File::MimeInfo::SharedMimeInfoXML;
 my $mime = File::MimeInfo::SharedMimeInfoXML->new();
 $mime->read_database('t/freedesktop.org.xml');
 
-my $pgp = $mime->mime_types->{'application/pgp-signature'};
+my $pgp = $mime->known_types->{'application/pgp-signature'};
 
 ok $pgp, "We find a type for 'application/pgp-signature'";
 my $superclass = $pgp->superclass;
@@ -23,7 +23,7 @@ qweoibvsjewrij
 PGP
 };
 
-my $perl = $mime->mime_types->{'application/x-perl'};
+my $perl = $mime->known_types->{'application/x-perl'};
 
 ok $perl, "We find a type for 'application/x-perl'";
 my $superclass = $perl->superclass;

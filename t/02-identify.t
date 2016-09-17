@@ -8,7 +8,7 @@ my $mime = File::MimeInfo::SharedMimeInfoXML->new(
     database => ['t/freedesktop.org.xml'],
 );
 
-my @type = $mime->mimetype($0);
+my @type = $mime->mime_types($0);
 
 if( !ok 0+@type, "We identify $0 with at least one type" ) {
     SKIP: { skip "Didn't identify $0", 1 };

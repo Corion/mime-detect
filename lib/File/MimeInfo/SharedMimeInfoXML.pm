@@ -33,7 +33,7 @@ before release:
 
   for my $file (@ARGV) {
     print sprintf "%s: %s\n", $file, $_->mime_type
-        for $mime->mimetype($file);
+        for $mime->mime_types($file);
   };
 
 =head1 METHODS
@@ -70,7 +70,7 @@ has 'types' => (
 );
 
 # References into @types
-has 'mime_types' => (
+has 'known_types' => (
     is => 'rw',
     default => sub { {} },
 );
@@ -127,10 +127,10 @@ sub reparse($self, @types) {
             $mime_map{ $a } ||= $t;
         };
     };
-    $self->mime_types(\%mime_map);
+    $self->known_types(\%mime_map);
 
     # Now, upgrade the strings to objects:
-    my $m = $self->mime_types;
+    my $m = $self->known_types;
     for my $t (@types) {
         my $s = $t->superclass;
         if( $s ) {
@@ -193,19 +193,19 @@ sub parse_rule( $self, $rule ) {
     };
 }
 
-=head2 C<< $mime->mimetypes >>
+=head2 C<< $mime->mime_types >>
 
-    my @types = $mime->mimetypes( 'some/file' );
+    my @types = $mime->mime_types( 'some/file' );
     for( @types ) {
         print $type->mime_type, "\n";
     };
 
-Returns the list of mimetypes according to their likelyhood.
+Returns the list of MIME types according to their likelyhood.
 The first type is the most likely.
 
 =cut
 
-sub mimetypes( $self, $file ) {
+sub mime_types( $self, $file ) {
     if( ! ref $file) {
         open my $fh, '<', $file
             or croak "Couldn't read '$file': $!";
@@ -217,7 +217,7 @@ sub mimetypes( $self, $file ) {
 
     my @candidates;
     # We should respect the priorities here...
-    my $m = $self->mime_types;
+    my $m = $self->known_types;
 
     # Already sorted by priority
     my @types = @{ $self->{types} };
@@ -234,9 +234,9 @@ sub mimetypes( $self, $file ) {
     @candidates;
 }
 
-=head2 C<< $mime->mimetype >>
+=head2 C<< $mime->mime_type >>
 
-    my $type = $mime->mimetype( 'some/file' );
+    my $type = $mime->mime_type( 'some/file' );
     print $type->mime_type, "\n"
         if $type;
 
@@ -245,8 +245,8 @@ if no file type can be determined.
 
 =cut
 
-sub mimetype( $self, $file ) {
-    ($self->mimetypes($file))[0]
+sub mime_type( $self, $file ) {
+    ($self->mime_types($file))[0]
 }
 
 package File::MimeInfo::SharedMimeInfoXML::Buffer;

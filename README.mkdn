@@ -6,13 +6,15 @@ File::MimeInfo::SharedMimeInfoXML - file type identification from the freedeskto
 
 before release:
 
-\* Allow for aggregation of multiple XML files/databases
+\* Find a better name or third part
+
+\* Revisit API compatibility with other MimeInfo modules
 
 \* Bundle the XML inline
 
 \* Write updater for updating the distributed XML file
 
-\* Make `mime-info` commandline compatible with `file`
+\* Make `mime-info.pl` commandline compatible with `file`
 
 # SYNOPSIS
 
@@ -20,14 +22,27 @@ before release:
 
     for my $file (@ARGV) {
       print sprintf "%s: %s\n", $file, $_->mime_type
-          for $mime->mimetype($file);
+          for $mime->mime_types($file);
     };
 
 # METHODS
 
+## `File::MimeInfo::SharedMimeInfoXML->new( ... )`
+
+    my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+
+Creates a new instance and reads the database distributed with this module.
+
+    my $mime = File::MimeInfo::SharedMimeInfoXML->new(
+        database => [
+            '/usr/share/freedesktop.org/mimeinfo.xml',
+            't/mimeinfo.xml',
+        ],
+    );
+
 ## `$mime->read_database @files`
 
-    $mime->read_database('mymime/mymime.xml','');
+    $mime->read_database('mymime/mymime.xml','/usr/share/freedesktop.org/mime.xml');
 
 If you want some different rules than the default
 database included with the distribution, you can replace the
@@ -38,3 +53,40 @@ and will be returned as duplicates.
 
 The rules will be sorted according to the priority specified in the database
 file(s).
+
+## `$mime->mime_types`
+
+    my @types = $mime->mime_types( 'some/file' );
+    for( @types ) {
+        print $type->mime_type, "\n";
+    };
+
+Returns the list of MIME types according to their likelyhood.
+The first type is the most likely.
+
+## `$mime->mime_type`
+
+    my $type = $mime->mime_type( 'some/file' );
+    print $type->mime_type, "\n"
+        if $type;
+
+Returns the most likely type of a file. Returns `undef`
+if no file type can be determined.
+
+# SEE ALSO
+
+[https://www.freedesktop.org/wiki/Software/shared-mime-info/](https://www.freedesktop.org/wiki/Software/shared-mime-info/) - the website
+where the XML file is distributed
+
+[File::MimeInfo](https://metacpan.org/pod/File::MimeInfo) - module to read your locally installed and converted MIME database
+
+[File::LibMagic](https://metacpan.org/pod/File::LibMagic) - if you can install `libmagic` and the appropriate `magic` files
+
+[File::MMagic](https://metacpan.org/pod/File::MMagic) - if you have the appropriate `magic` files
+
+[File::MMagic::XS](https://metacpan.org/pod/File::MMagic::XS) - if you have the appropriate `magic` files but want more speed
+
+[File::Type](https://metacpan.org/pod/File::Type) - inlines its database, unsupported since 2004?
+
+[File::Type::WebImages](https://metacpan.org/pod/File::Type::WebImages) - if you're only interested in determining whether
+a file is an image or not
