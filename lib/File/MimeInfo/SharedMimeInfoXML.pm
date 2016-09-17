@@ -430,11 +430,11 @@ sub matches($self, $buffer, $rules = $self->rules) {
         #use Data::Dumper;
         #$Data::Dumper::Useqq = 1;
         if( $rule->{offset} =~ m!^(\d+):(\d+)$! ) {
-            #warn "index match $1:$2 for " . Dumper $value;
+            #warn sprintf "%s: index match %d:%d for %s", $self->mime_type, $1,$2, Dumper $value;
             #warn Dumper substr( $buf, $1, $2+length($value));
             $matches = $matches || 1+index( substr( $buf, $1, $2+length($value)), $value );
         } else {
-            #warn "substring match $rule->{offset} for " . Dumper $value;
+            #warn sprintf "%s: substring match %d for %s", $self->mime_type, $rule->{offset}, Dumper $value;
             #warn Dumper substr( $buf, $rule->{offset}, length($value));
             $matches = $matches || substr( $buf, $rule->{offset}, length($value)) eq $value;
         };
