@@ -26,7 +26,7 @@ PGP
 my $perl = $mime->known_types->{'application/x-perl'};
 
 ok $perl, "We find a type for 'application/x-perl'";
-my $superclass = $perl->superclass;
+   $superclass = $perl->superclass;
 if( !ok $superclass, "We have a superclass") {
     use Data::Dumper;
     diag Dumper $perl;
