@@ -401,3 +401,9 @@ sub matches($self, $buffer, $rules = $self->rules) {
 }
 
 1;
+
+=head1 SEE ALSO
+
+L<File::MimeInfo> - module to read your locally installed and converted MIME database
+
+=cut
