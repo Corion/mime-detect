@@ -159,6 +159,7 @@ sub fragment_to_type( $self, $frag ) {
     my( $priority, @rules );
     if( $magic ) {
         $priority = $magic->getAttribute('priority');
+        $priority = 50 if !defined $priority;
         @rules = grep { $_->nodeType != 3 } # exclude text nodes
                     $magic->childNodes;
         for my $rule (@rules) {

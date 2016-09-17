@@ -19,6 +19,7 @@ if( !ok 0+@types, "We identify our buffer with at least one type" ) {
     is_deeply [map {;$_->mime_type} @types], [
         "application/x-7z-custom",
         "application/x-7z-compressed",
+        "application/x-7z-custom-low",
     ], "We still recognize all types";
 };
 
