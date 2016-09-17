@@ -315,23 +315,77 @@ use if $] < 5.022, 'Filter::signatures';
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
+=head1 NAME
+
+File::MimeInfo::SharedMimeInfoXML::Type - the type of a file
+
+=head1 SYNOPSIS
+
+    my $type = $mime->mime_type('/usr/bin/perl');
+    print $type->mime_type;
+    print $type->comment;
+
+=head1 METHODS
+
+=cut
+
+=head2 C<< $type->aliases >>
+
+Reference to the aliases of this type
+
+=cut
+
 has 'aliases' => (
     is => 'ro',
     default => sub {[]},
 );
 
+=head2 C<< $type->comment >>
+
+Array reference of the type description in various languages
+(currently unused)
+
+=cut
+
 has 'comment' => (
     is => 'ro',
 );
+
+=head2 C<< $type->mime_type >>
+
+    print "Content-Type: " . $type->mime_type . "\r\n";
+
+String of the content type
+
+=cut
 
 has 'mime_type' => (
     is => 'ro',
 );
 
+=head2 C<< $type->globs >>
+
+    print $_ for @{ $type->globs };
+
+Arrayref of the wildcard globs of this type
+
+=cut
+
 has 'globs' => (
     is => 'ro',
     default => sub {[]},
 );
+
+=head2 C<< $type->priority >>
+
+    print $type->priority;
+
+Priority of this type. Types with higher priority
+get tried first when trying to recognize a file type.
+
+The default priority is 50.
+
+=cut
 
 has 'priority' => (
     is => 'ro',
@@ -342,6 +396,16 @@ has 'rules' => (
     is => 'ro',
     default => sub { [] },
 );
+
+=head2 C<< $type->superclass >>
+
+    my $sc = $type->superclass;
+    print $sc->mime_type;
+
+The notional superclass of this file type. Note that superclasses
+don't necessarily match the same magic numbers.
+
+=cut
 
 has 'superclass' => (
     is => 'rw',
@@ -397,6 +461,15 @@ sub BUILD($self, $args) {
 sub compile($self,$fragment) {
     die "No direct-to-Perl compilation implemented yet.";
 }
+
+=head2 C<< $type->matches $buffer >>
+
+    my $buf = "PK\003\004"; # first four bytes of file
+    if( $type->matches( $buf ) {
+        print "Looks like a " . $type->mime_type . " file";
+    };
+
+=cut
 
 sub matches($self, $buffer, $rules = $self->rules) {
     my @rules = @$rules;
