@@ -454,4 +454,15 @@ where the XML file is distributed
 
 L<File::MimeInfo> - module to read your locally installed and converted MIME database
 
+L<File::LibMagic> - if you can install C<libmagic> and the appropriate C<magic> files
+
+L<File::MMagic> - if you have the appropriate C<magic> files
+
+L<File::MMagic::XS> - if you have the appropriate C<magic> files but want more speed
+
+L<File::Type> - inlines its database, unsupported since 2004?
+
+L<File::Type::WebImages> - if you're only interested in determining whether
+a file is an image or not
+
 =cut
