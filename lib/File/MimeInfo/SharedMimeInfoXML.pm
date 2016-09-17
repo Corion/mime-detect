@@ -398,6 +398,7 @@ sub matches($self, $buffer, $rules = $self->rules) {
 
         my $value = $rule->{value};
 
+        no warnings ('uninitialized', 'substr');
         my $buf = $buffer->request($rule->{offset}, length $value);
         if( $rule->{offset} =~ m!^(\d+):(\d+)$! ) {
             #warn "index match $1:$2 for $value";
