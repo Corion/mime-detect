@@ -427,13 +427,15 @@ sub matches($self, $buffer, $rules = $self->rules) {
 
         no warnings ('uninitialized', 'substr');
         my $buf = $buffer->request($rule->{offset}, length $value);
+        #use Data::Dumper;
+        #$Data::Dumper::Useqq = 1;
         if( $rule->{offset} =~ m!^(\d+):(\d+)$! ) {
-            #warn "index match $1:$2 for $value";
-            #warn $buf;
-            #warn substr( $buf, $1, $2+length($value));
+            #warn "index match $1:$2 for " . Dumper $value;
+            #warn Dumper substr( $buf, $1, $2+length($value));
             $matches = $matches || 1+index( substr( $buf, $1, $2+length($value)), $value );
         } else {
-            #warn "substring match $rule->{offset} for $value";
+            #warn "substring match $rule->{offset} for " . Dumper $value;
+            #warn Dumper substr( $buf, $rule->{offset}, length($value));
             $matches = $matches || substr( $buf, $rule->{offset}, length($value)) eq $value;
         };
         $matches = $matches && $self->matches( $buffer, $rule->{and} ) if $rule->{and};
@@ -446,6 +448,9 @@ sub matches($self, $buffer, $rules = $self->rules) {
 1;
 
 =head1 SEE ALSO
+
+L<https://www.freedesktop.org/wiki/Software/shared-mime-info/> - the website
+where the XML file is distributed
 
 L<File::MimeInfo> - module to read your locally installed and converted MIME database
 
