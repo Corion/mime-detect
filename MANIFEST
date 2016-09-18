@@ -2,6 +2,8 @@ bin/mime-info.pl
 Changes
 INSTALL
 lib/File/MimeInfo/SharedMimeInfoXML.pm
+lib/File/MimeInfo/SharedMimeInfoXML/mime-info/COPYING
+lib/File/MimeInfo/SharedMimeInfoXML/mime-info/freedesktop.org.xml
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
