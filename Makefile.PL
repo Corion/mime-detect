@@ -50,7 +50,7 @@ WriteMakefile1(
     BUILD_REQUIRES => {
         'ExtUtils::MakeMaker' => 0,
     },
-    'PREREQ_PM'    => { 'XML::LibXML' => 0,
+    'PREREQ_PM'    => { 'XML::LibXML' => '1.70', # we want ->load_xml()
                         'Moo'         => 2,
                         'Carp'        => 0,
                         'Fcntl'       => 0,

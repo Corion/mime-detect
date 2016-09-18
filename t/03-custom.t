@@ -5,7 +5,7 @@ use File::MimeInfo::SharedMimeInfoXML;
 use Data::Dumper;
 
 my $mime = File::MimeInfo::SharedMimeInfoXML->new(
-    database => ['t/freedesktop.org.xml','t/custom.xml'],
+    files => ['t/custom.xml'],
 );
 
 open my $fh, '<', \"7z\274\257'\34\0"

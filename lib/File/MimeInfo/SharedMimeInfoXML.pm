@@ -45,7 +45,7 @@ before release:
 Creates a new instance and reads the database distributed with this module.
 
   my $mime = File::MimeInfo::SharedMimeInfoXML->new(
-      database => [
+      files => [
           '/usr/share/freedesktop.org/mimeinfo.xml',
           't/mimeinfo.xml',
       ],
@@ -54,9 +54,8 @@ Creates a new instance and reads the database distributed with this module.
 =cut
 
 sub BUILD( $self, $args ) {
-    if( ref $args->{database} and @{ $args->{database} }) {
-        $self->read_database( @{ $args->{database}} )
-    };
+    my %db_args = map { exists( $args->{$_} )? ($_ => $args->{$_}) : () } (qw(xml files));
+    $self->read_database( %db_args );
 }
 
 has 'typeclass' => (
@@ -84,13 +83,18 @@ has 'xpc' => (
     },
 );
 
-=head2 C<< $mime->read_database @files >>
+=head2 C<< $mime->read_database %options >>
 
-  $mime->read_database('mymime/mymime.xml','/usr/share/freedesktop.org/mime.xml');
+  $mime->read_database(
+      xml => File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB->get_xml,
+      files => [
+          'mymime/mymime.xml',
+          '/usr/share/freedesktop.org/mime.xml',
+      ],
+  );
 
-If you want some different rules than the default
-database included with the distribution, you can replace the
-database by a database stored in another file.
+If you want rules in addition to the default
+database included with the distribution, you can load the rules from another file.
 Passing in multiple filenames will join the multiple
 databases. Duplicate file type definitions will not be detected
 and will be returned as duplicates.
@@ -98,14 +102,38 @@ and will be returned as duplicates.
 The rules will be sorted according to the priority specified in the database
 file(s).
 
+By default, the XML database stored alongside
+L<File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB>
+will be loaded after all custom files have been loaded.
+To pass in a different fallback database, either pass in a reference
+to the XML string or the name of a package that has an C<get_xml> subroutine.
+
+To prevent loading the default database, pass undef
+for the C<xml> key.
+
 =cut
 
-sub read_database( $self, @files ) {
+sub read_database( $self, %options ) {
+    $options{ files } ||= [];
+    if( ! exists $options{ xml }) {
+        $options{ xml } = 'File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB';
+    };
+    
+    if( $options{ xml } and not ref $options{ xml }) {
+        # Load the class name
+        if( !eval "require $options{ xml }; 1") {
+            croak $@;
+        };
+        $options{ xml } = $options{ xml }->get_xml;
+    };
+    
     my @types = map {
-        my $p = XML::LibXML->new();
-        my $doc = $p->parse_file( $_ );
+        my @args = ref $_ eq 'SCALAR' ? (string   => $_) :
+                   ref $_             ? (IO       => $_) :
+                                        (location => $_);
+        my $doc = XML::LibXML->load_xml( load_ext_dtd => 0, @args );
         $self->_parse_types($doc);
-    } @files;
+    } @{$options{ files }}, $options{ xml };
     $self->reparse(@types);
 }
 

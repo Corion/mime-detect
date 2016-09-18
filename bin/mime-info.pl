@@ -1,9 +1,7 @@
 #!perl -w
 use strict;
 use File::MimeInfo::SharedMimeInfoXML;
-my $mime = File::MimeInfo::SharedMimeInfoXML->new(
-    database => ['t/freedesktop.org.xml'],
-);
+my $mime = File::MimeInfo::SharedMimeInfoXML->new();
 
 if( $^O =~ /mswin/i ) {
     require File::Glob;

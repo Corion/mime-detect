@@ -36,24 +36,38 @@ METHODS
     module.
 
       my $mime = File::MimeInfo::SharedMimeInfoXML->new(
-          database => [
+          files => [
               '/usr/share/freedesktop.org/mimeinfo.xml',
               't/mimeinfo.xml',
           ],
       );
 
- $mime->read_database @files
+ $mime->read_database %options
 
-      $mime->read_database('mymime/mymime.xml','/usr/share/freedesktop.org/mime.xml');
+      $mime->read_database(
+          xml => File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB->get_xml,
+          files => [
+              'mymime/mymime.xml',
+              '/usr/share/freedesktop.org/mime.xml',
+          ],
+      );
 
-    If you want some different rules than the default database included
-    with the distribution, you can replace the database by a database
-    stored in another file. Passing in multiple filenames will join the
-    multiple databases. Duplicate file type definitions will not be
-    detected and will be returned as duplicates.
+    If you want rules in addition to the default database included with the
+    distribution, you can load the rules from another file. Passing in
+    multiple filenames will join the multiple databases. Duplicate file
+    type definitions will not be detected and will be returned as
+    duplicates.
 
     The rules will be sorted according to the priority specified in the
     database file(s).
+
+    By default, the XML database stored alongside
+    File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB will be loaded
+    after all custom files have been loaded. To pass in a different
+    fallback database, either pass in a reference to the XML string or the
+    name of a package that has an get_xml subroutine.
+
+    To prevent loading the default database, pass undef for the xml key.
 
  $mime->mime_types
 
@@ -73,6 +87,63 @@ METHODS
 
     Returns the most likely type of a file. Returns undef if no file type
     can be determined.
+
+NAME
+
+    File::MimeInfo::SharedMimeInfoXML::Type - the type of a file
+
+SYNOPSIS
+
+        my $type = $mime->mime_type('/usr/bin/perl');
+        print $type->mime_type;
+        print $type->comment;
+
+METHODS
+
+ $type->aliases
+
+    Reference to the aliases of this type
+
+ $type->comment
+
+    Array reference of the type description in various languages (currently
+    unused)
+
+ $type->mime_type
+
+        print "Content-Type: " . $type->mime_type . "\r\n";
+
+    String of the content type
+
+ $type->globs
+
+        print $_ for @{ $type->globs };
+
+    Arrayref of the wildcard globs of this type
+
+ $type->priority
+
+        print $type->priority;
+
+    Priority of this type. Types with higher priority get tried first when
+    trying to recognize a file type.
+
+    The default priority is 50.
+
+ $type->superclass
+
+        my $sc = $type->superclass;
+        print $sc->mime_type;
+
+    The notional superclass of this file type. Note that superclasses don't
+    necessarily match the same magic numbers.
+
+ $type->matches $buffer
+
+        my $buf = "PK\003\004"; # first four bytes of file
+        if( $type->matches( $buf ) {
+            print "Looks like a " . $type->mime_type . " file";
+        };
 
 SEE ALSO
 
