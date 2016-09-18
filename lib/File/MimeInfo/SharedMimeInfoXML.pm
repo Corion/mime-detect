@@ -131,7 +131,11 @@ sub read_database( $self, %options ) {
         my @args = ref $_ eq 'SCALAR' ? (string   => $_) :
                    ref $_             ? (IO       => $_) :
                                         (location => $_);
-        my $doc = XML::LibXML->load_xml( load_ext_dtd => 0, @args );
+        my $doc = XML::LibXML->load_xml(
+            no_network => 1,
+            load_ext_dtd => 0,
+            @args
+        );
         $self->_parse_types($doc);
     } @{$options{ files }}, $options{ xml };
     $self->reparse(@types);
