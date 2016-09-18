@@ -1,7 +1,7 @@
 package File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB;
 use strict;
 use vars '$VERSION';
-$VERSION='0.01';
+$VERSION = '0.01';
 
 =head1 NAME
 
