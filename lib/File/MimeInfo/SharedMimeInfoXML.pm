@@ -1,4 +1,5 @@
 package File::MimeInfo::SharedMimeInfoXML;
+# Rename to File::MIME::Magic
 use Moo;
 use if $] < 5.022, 'Filter::signatures';
 use feature 'signatures';
@@ -17,13 +18,14 @@ File::MimeInfo::SharedMimeInfoXML - file type identification from the freedeskto
 
 before release:
 
-* Find a better name or third part
+* Find a better name or third part (MIME::Detect ?)
 
 * Revisit API compatibility with other MimeInfo modules
 
-* Bundle the XML inline
-
-* Write updater for updating the distributed XML file
+* Write updater for easier updating the distributed XML file. Maybe that's
+just an appropriate invocation of C<git clone> or C<lwp-mirror>
+from L<https://cgit.freedesktop.org/xdg/shared-mime-info/plain/freedesktop.org.xml.in>
+(nasty, I know).
 
 * Make C<mime-info.pl> commandline compatible with C<file>
 
