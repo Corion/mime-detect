@@ -296,11 +296,6 @@ has 'offset' => (
     default => 0,
 );
 
-has 'length' => (
-    is => 'rw',
-    default => 0,
-);
-
 has 'buffer' => (
     is => 'rw',
     default => undef,
@@ -310,6 +305,10 @@ has 'fh' => (
     is => 'ro',
 );
 
+sub length($self) {
+    length $self->buffer || 0
+};
+
 sub request($self,$offset,$length) {
     my $fh = $self->fh;
 
@@ -318,26 +317,42 @@ sub request($self,$offset,$length) {
         $length += $2;
     };
 
+    #warn sprintf "At %d to %d (%d), want %d to %d (%d)",
+    #         $self->offset, $self->offset+$self->length, $self->length,
+    #         $offset, $offset+$length, $length;
     if(     $offset < $self->offset
         or  $self->offset+$self->length < $offset+$length ) {
         # We need to refill the buffer
         my $buffer;
+        my $updated = 0;
         if (ref $fh eq 'GLOB') {
-            seek($fh, $offset, SEEK_SET);
-            read($fh, $buffer, $length);
+            if( seek($fh, $offset, SEEK_SET)) {
+                read($fh, $buffer, $length);
+                $updated = 1;
+            };
         } else {
             # let's hope you have ->seek and ->read:
-            $fh->seek($offset, SEEK_SET);
-            $fh->read($buffer, $length);
+            if( $fh->seek($offset, SEEK_SET) ) {
+                $fh->read($buffer, $length);
+                $updated = 1;
+            };
         }
-
+        
         # Setting all three in one go would be more object-oriented ;)
-        $self->offset($offset);
-        $self->length($length);
-        $self->buffer($buffer);
+        if( $updated ) {
+            $self->offset($offset);
+            $self->buffer($buffer);
+        };
     };
 
-    $self->buffer
+    if(     $offset >= $self->offset
+        and $self->offset+$self->length >= $offset+$length ) {
+        substr $self->buffer, $offset-$self->offset, $length
+    } elsif(     $offset >= $self->offset ) {
+        substr $self->buffer, $offset-$self->offset
+    } else {
+        return ''
+    };
 }
 
 1;
@@ -533,18 +548,18 @@ sub matches($self, $buffer, $rules = $self->rules) {
 
         my $value = $rule->{value};
 
-        no warnings ('uninitialized', 'substr');
         my $buf = $buffer->request($rule->{offset}, length $value);
         #use Data::Dumper;
         #$Data::Dumper::Useqq = 1;
+        no warnings ('uninitialized', 'substr');
         if( $rule->{offset} =~ m!^(\d+):(\d+)$! ) {
             #warn sprintf "%s: index match %d:%d for %s", $self->mime_type, $1,$2, Dumper $value;
-            #warn Dumper substr( $buf, $1, $2+length($value));
-            $matches = $matches || 1+index( substr( $buf, $1, $2+length($value)), $value );
+            #warn Dumper substr( $buf, 0, ($2-$1)+length($value));
+            $matches = $matches || 1+index( substr( $buf, 0, ($2-$1)+length($value)), $value );
         } else {
             #warn sprintf "%s: substring match %d for %s", $self->mime_type, $rule->{offset}, Dumper $value;
             #warn Dumper substr( $buf, $rule->{offset}, length($value));
-            $matches = $matches || substr( $buf, $rule->{offset}, length($value)) eq $value;
+            $matches = $matches || substr( $buf, 0, length($value)) eq $value;
         };
         $matches = $matches && $self->matches( $buffer, $rule->{and} ) if $rule->{and};
 
