@@ -12,7 +12,7 @@ $VERSION = '0.01';
 
 =head1 NAME
 
-File::MimeInfo::SharedMimeInfoXML - file type identification from the freedesktop.org database
+File::MimeInfo::SharedMimeInfoXML - MIME file type identification
 
 =head1 TO DO
 
