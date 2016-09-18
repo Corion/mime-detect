@@ -8,6 +8,8 @@ lib/File/MimeInfo/SharedMimeInfoXML/mime-info/freedesktop.org.xml
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
+META.json
+META.yml
 MYMETA.json
 MYMETA.yml
 README
