@@ -2,19 +2,6 @@ NAME
 
     MIME::Detect - MIME file type identification
 
-TO DO
-
-    before release:
-
-    * Revisit API compatibility with other MimeInfo modules
-
-    * Write updater for easier updating the distributed XML file. Maybe
-    that's just an appropriate invocation of git clone or lwp-mirror from
-    https://cgit.freedesktop.org/xdg/shared-mime-info/plain/freedesktop.org
-    .xml.in (nasty, I know).
-
-    * Make mime-info.pl commandline compatible with file
-
 SYNOPSIS
 
       my $mime = MIME::Detect->new();
@@ -43,7 +30,7 @@ METHODS
  $mime->read_database %options
 
       $mime->read_database(
-          xml => MIME::Detect::FreedesktopOrgDB->get_xml,
+          xml => MIME::Detect::FreeDesktopOrgDB->get_xml,
           files => [
               'mymime/mymime.xml',
               '/usr/share/freedesktop.org/mime.xml',
@@ -60,7 +47,7 @@ METHODS
     database file(s).
 
     By default, the XML database stored alongside
-    MIME::Detect::FreedesktopOrgDB will be loaded after all custom files
+    MIME::Detect::FreeDesktopOrgDB will be loaded after all custom files
     have been loaded. To pass in a different fallback database, either pass
     in a reference to the XML string or the name of a package that has an
     get_xml subroutine.
@@ -163,4 +150,31 @@ SEE ALSO
 
     File::Type::WebImages - if you're only interested in determining
     whether a file is an image or not
+
+REPOSITORY
+
+    The public repository of this module is
+    http://github.com/Corion/filter-signatures.
+
+SUPPORT
+
+    The public support forum of this module is https://perlmonks.org/.
+
+BUG TRACKER
+
+    Please report bugs in this module via the RT CPAN bug queue at
+    https://rt.cpan.org/Public/Dist/Display.html?Name=Filter-signatures or
+    via mail to filter-signatures-Bugs@rt.cpan.org.
+
+AUTHOR
+
+    Max Maischein corion@cpan.org
+
+COPYRIGHT (c)
+
+    Copyright 2015-2016 by Max Maischein corion@cpan.org.
+
+LICENSE
+
+    This module is released under the same terms as Perl itself.
 
