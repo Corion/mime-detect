@@ -585,4 +585,32 @@ L<File::Type> - inlines its database, unsupported since 2004?
 L<File::Type::WebImages> - if you're only interested in determining whether
 a file is an image or not
 
+=head1 REPOSITORY
+
+The public repository of this module is 
+L<http://github.com/Corion/filter-signatures>.
+
+=head1 SUPPORT
+
+The public support forum of this module is
+L<https://perlmonks.org/>.
+
+=head1 BUG TRACKER
+
+Please report bugs in this module via the RT CPAN bug queue at
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=Filter-signatures>
+or via mail to L<filter-signatures-Bugs@rt.cpan.org>.
+
+=head1 AUTHOR
+
+Max Maischein C<corion@cpan.org>
+
+=head1 COPYRIGHT (c)
+
+Copyright 2015-2016 by Max Maischein C<corion@cpan.org>.
+
+=head1 LICENSE
+
+This module is released under the same terms as Perl itself.
+
 =cut
