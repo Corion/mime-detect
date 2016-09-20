@@ -14,7 +14,7 @@ license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: '1.4'
-name: File-MimeInfo-SharedMimeInfoXML
+name: MIME-Detect
 no_index:
   directory:
     - t
@@ -27,5 +27,5 @@ requires:
   if: '0'
   perl: '5.006'
 resources:
-  repository: git://github.com/Corion/file-mimeinfo-sharedmimeinfoxml.git
+  repository: git://github.com/Corion/mime-detect.git
 version: '0.01'
