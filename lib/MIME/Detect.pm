@@ -72,7 +72,7 @@ has 'xpc' => (
 =head2 C<< $mime->read_database %options >>
 
   $mime->read_database(
-      xml => MIME::Detect::FreedesktopOrgDB->get_xml,
+      xml => MIME::Detect::FreeDesktopOrgDB->get_xml,
       files => [
           'mymime/mymime.xml',
           '/usr/share/freedesktop.org/mime.xml',
@@ -89,7 +89,7 @@ The rules will be sorted according to the priority specified in the database
 file(s).
 
 By default, the XML database stored alongside
-L<MIME::Detect::FreedesktopOrgDB>
+L<MIME::Detect::FreeDesktopOrgDB>
 will be loaded after all custom files have been loaded.
 To pass in a different fallback database, either pass in a reference
 to the XML string or the name of a package that has an C<get_xml> subroutine.
@@ -102,7 +102,7 @@ for the C<xml> key.
 sub read_database( $self, %options ) {
     $options{ files } ||= [];
     if( ! exists $options{ xml }) {
-        $options{ xml } = 'MIME::Detect::FreedesktopOrgDB';
+        $options{ xml } = 'MIME::Detect::FreeDesktopOrgDB';
     };
     
     if( $options{ xml } and not ref $options{ xml }) {

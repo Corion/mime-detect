@@ -1,11 +1,11 @@
-package MIME::Detect::FreedesktopOrgDB;
+package MIME::Detect::FreeDesktopOrgDB;
 use strict;
 use vars '$VERSION';
 $VERSION = '0.01';
 
 =head1 NAME
 
-MIME::Detect::FreedesktopOrgDB - default freedesktop.org database
+MIME::Detect::FreeDesktopOrgDB - default freedesktop.org database
 
 =head1 NOTICE
 
@@ -23,7 +23,7 @@ sub url {'https://www.freedesktop.org/wiki/Software/shared-mime-info/'}
 
 =head2 C<< get_xml >>
 
-    my $xml = MIME::Detect::FreedesktopOrgDB->get_xml;
+    my $xml = MIME::Detect::FreeDesktopOrgDB->get_xml;
 
 Returns a reference to the XML string from C<freedesktop.org.xml> distributed
 with this module.
