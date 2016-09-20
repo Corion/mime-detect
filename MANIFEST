@@ -10,8 +10,6 @@ MANIFEST
 MANIFEST.SKIP
 META.json
 META.yml
-MYMETA.json
-MYMETA.yml
 README
 README.mkdn
 t/01-mime-info.t

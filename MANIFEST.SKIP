@@ -12,5 +12,6 @@ CVS/
 ^Makefile$
 ^cvstest$
 ^blibdirs$
+^MYMETA.*
 bin/.*.sqlite$
 ^.git
