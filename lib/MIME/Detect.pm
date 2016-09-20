@@ -409,6 +409,25 @@ has 'globs' => (
     default => sub {[]},
 );
 
+=head2 C<< $type->valid_extension( $fn ) >>
+
+    print "$fn has the wrong extension"
+        unless $type->valid_extension( $fn );
+
+Returns whether C<$fn> matches one of the extensions
+as specified in C<globs>.
+
+=cut
+
+sub valid_extension( $self, $fn ) {
+    grep {
+        my $g = $_;
+        $g =~ s![.]!\.!g;
+        $g =~ s!\*!.*!g;
+        $fn =~ /$g$/;
+    } @{ $self->globs }
+}
+
 =head2 C<< $type->priority >>
 
     print $type->priority;
