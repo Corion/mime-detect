@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 10;
+use Test::More tests => 12;
 use MIME::Detect;
 my $mime = MIME::Detect->new();
 
@@ -46,3 +46,20 @@ if( !ok $sevenZip, "We find a type for 'application/x-7z-compressed'") {
 } else {
     ok $sevenZip->matches("7z\274\257'\34\0"), "We identify 7zip files correctly";
 }
+
+my $payload = join '',
+              "\x89",
+              'PNG',
+              "\x0d\x0a",
+              "\x1a",
+              "\x0a"
+              ;
+
+my $png = $mime->known_types->{'image/png'};
+
+if( !ok $png, "We find a type for 'image/png'") {
+    SKIP: { skip "We didn't even find a type for 'image/png'", 1 };
+} else {
+    ok $png->matches($payload), "We identify PNG files correctly";
+}
+

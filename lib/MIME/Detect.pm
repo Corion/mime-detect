@@ -478,7 +478,12 @@ sub BUILD($self, $args) {
                 't' => "\t",
                 "\\" => "\\",
             );
-            $value =~ s!\\([nrt\\]|[0-7][0-7][0-7])!$replace{$1} || chr(oct($1)) !ge;
+            $value =~ s{\\([nrt\\]|([0-7][0-7][0-7])|x([0-9a-fA-F][0-9a-fA-F]))}
+                       { $replace{$1} ? $replace{$1} 
+                       : $2 ? chr(oct($2))
+                       : $3 ? chr(hex($3))
+                       : $1
+                       }xge;
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'little32' ) {
             $value = pack 'V', hex($rule->{value});
