@@ -106,6 +106,14 @@ METHODS
 
     Arrayref of the wildcard globs of this type
 
+ $type->valid_extension( $fn )
+
+        print "$fn has the wrong extension"
+            unless $type->valid_extension( $fn );
+
+    Returns whether $fn matches one of the extensions as specified in
+    globs.
+
  $type->priority
 
         print $type->priority;

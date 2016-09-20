@@ -7,7 +7,7 @@ use Carp qw(croak);
 use XML::LibXML;
 
 use vars '$VERSION';
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 =head1 NAME
 
