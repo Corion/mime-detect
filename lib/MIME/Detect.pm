@@ -13,19 +13,6 @@ $VERSION = '0.01';
 
 MIME::Detect - MIME file type identification
 
-=head1 TO DO
-
-before release:
-
-* Revisit API compatibility with other MimeInfo modules
-
-* Write updater for easier updating the distributed XML file. Maybe that's
-just an appropriate invocation of C<git clone> or C<lwp-mirror>
-from L<https://cgit.freedesktop.org/xdg/shared-mime-info/plain/freedesktop.org.xml.in>
-(nasty, I know).
-
-* Make C<mime-info.pl> commandline compatible with C<file>
-
 =head1 SYNOPSIS
 
   my $mime = MIME::Detect->new();

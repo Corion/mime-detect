@@ -16,6 +16,7 @@ t/01-mime-info.t
 t/02-identify.t
 t/03-custom.t
 t/custom.xml
+update.pod
 xt/99-changes.t
 xt/99-compile.t
 xt/99-manifest.t
