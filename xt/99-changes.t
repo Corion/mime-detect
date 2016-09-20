@@ -12,7 +12,7 @@ release date is mentioned as well
 
 =cut
 
-my $module = 'File::MimeInfo::SharedMimeInfoXML';
+my $module = 'MIME::Detect';
 
 (my $file = $module) =~ s!::!/!g;
 require "$file.pm";

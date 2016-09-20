@@ -10,9 +10,9 @@ use ExtUtils::MakeMaker qw(WriteMakefile);
 my $eumm_version = $ExtUtils::MakeMaker::VERSION;
 $eumm_version =~ s/_//;
 
-my $module = 'File::MimeInfo::SharedMimeInfoXML';
+my $module = 'MIME::Detect';
 (my $main_file = "lib/$module.pm" ) =~ s!::!/!g;
-my $repository = 'git://github.com/Corion/file-mimeinfo-sharedmimeinfoxml.git';
+my $repository = 'git://github.com/Corion/mime-detect.git';
 (my $repository_web = $repository) =~ s!^git://github.com/(.*).git!https://github.com/$1!;
 (my $distdir = $module) =~ s!::!_!g;
 

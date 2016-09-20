@@ -1,7 +1,7 @@
 #!perl -w
 use strict;
-use File::MimeInfo::SharedMimeInfoXML;
-my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+use MIME::Detect;
+my $mime = MIME::Detect->new();
 
 if( $^O =~ /mswin/i ) {
     require File::Glob;

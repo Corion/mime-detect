@@ -1,8 +1,8 @@
 #!perl -w
 use strict;
 use Test::More tests => 10;
-use File::MimeInfo::SharedMimeInfoXML;
-my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+use MIME::Detect;
+my $mime = MIME::Detect->new();
 
 my $pgp = $mime->known_types->{'application/pgp-signature'};
 

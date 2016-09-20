@@ -1,10 +1,10 @@
 bin/mime-info.pl
 Changes
 INSTALL
-lib/File/MimeInfo/SharedMimeInfoXML.pm
-lib/File/MimeInfo/SharedMimeInfoXML/FreedesktopOrgDB.pm
-lib/File/MimeInfo/SharedMimeInfoXML/mime-info/COPYING
-lib/File/MimeInfo/SharedMimeInfoXML/mime-info/freedesktop.org.xml
+lib/MIME/Detect.pm
+lib/MIME/Detect/FreeDesktopOrgDB.pm
+lib/MIME/Detect/FreeDesktopOrgDB/mime-info/COPYING
+lib/MIME/Detect/FreeDesktopOrgDB/mime-info/freedesktop.org.xml
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP

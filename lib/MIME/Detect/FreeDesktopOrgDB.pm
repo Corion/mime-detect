@@ -1,11 +1,11 @@
-package File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB;
+package MIME::Detect::FreedesktopOrgDB;
 use strict;
 use vars '$VERSION';
 $VERSION = '0.01';
 
 =head1 NAME
 
-File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB - default freedesktop.org database
+MIME::Detect::FreedesktopOrgDB - default freedesktop.org database
 
 =head1 NOTICE
 
@@ -23,7 +23,7 @@ sub url {'https://www.freedesktop.org/wiki/Software/shared-mime-info/'}
 
 =head2 C<< get_xml >>
 
-    my $xml = File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB->get_xml;
+    my $xml = MIME::Detect::FreedesktopOrgDB->get_xml;
 
 Returns a reference to the XML string from C<freedesktop.org.xml> distributed
 with this module.
@@ -31,7 +31,7 @@ with this module.
 =cut
 
 sub get_xml {
-    (my $xml_name = __FILE__) =~ s!FreedesktopOrgDB\.pm$!mime-info/freedesktop.org.xml!;
+    (my $xml_name = __FILE__) =~ s!\.pm$!/mime-info/freedesktop.org.xml!;
     open my $fh, '<', $xml_name
         or die "Couldn't read '$xml_name': $!";
     binmode $fh;

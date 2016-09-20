@@ -1,10 +1,10 @@
 #!perl -w
 use strict;
 use Test::More tests => 3;
-use File::MimeInfo::SharedMimeInfoXML;
+use MIME::Detect;
 use Data::Dumper;
 
-my $mime = File::MimeInfo::SharedMimeInfoXML->new(
+my $mime = MIME::Detect->new(
     files => ['t/custom.xml'],
 );
 

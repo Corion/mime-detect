@@ -1,12 +1,10 @@
 NAME
 
-    File::MimeInfo::SharedMimeInfoXML - MIME file type identification
+    MIME::Detect - MIME file type identification
 
 TO DO
 
     before release:
-
-    * Find a better name or third part (MIME::Detect ?)
 
     * Revisit API compatibility with other MimeInfo modules
 
@@ -19,7 +17,7 @@ TO DO
 
 SYNOPSIS
 
-      my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+      my $mime = MIME::Detect->new();
     
       for my $file (@ARGV) {
         print sprintf "%s: %s\n", $file, $_->mime_type
@@ -28,14 +26,14 @@ SYNOPSIS
 
 METHODS
 
- File::MimeInfo::SharedMimeInfoXML->new( ... )
+ MIME::Detect->new( ... )
 
-      my $mime = File::MimeInfo::SharedMimeInfoXML->new();
+      my $mime = MIME::Detect->new();
 
     Creates a new instance and reads the database distributed with this
     module.
 
-      my $mime = File::MimeInfo::SharedMimeInfoXML->new(
+      my $mime = MIME::Detect->new(
           files => [
               '/usr/share/freedesktop.org/mimeinfo.xml',
               't/mimeinfo.xml',
@@ -45,7 +43,7 @@ METHODS
  $mime->read_database %options
 
       $mime->read_database(
-          xml => File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB->get_xml,
+          xml => MIME::Detect::FreedesktopOrgDB->get_xml,
           files => [
               'mymime/mymime.xml',
               '/usr/share/freedesktop.org/mime.xml',
@@ -62,10 +60,10 @@ METHODS
     database file(s).
 
     By default, the XML database stored alongside
-    File::MimeInfo::SharedMimeInfoXML::FreedesktopOrgDB will be loaded
-    after all custom files have been loaded. To pass in a different
-    fallback database, either pass in a reference to the XML string or the
-    name of a package that has an get_xml subroutine.
+    MIME::Detect::FreedesktopOrgDB will be loaded after all custom files
+    have been loaded. To pass in a different fallback database, either pass
+    in a reference to the XML string or the name of a package that has an
+    get_xml subroutine.
 
     To prevent loading the default database, pass undef for the xml key.
 
@@ -90,7 +88,7 @@ METHODS
 
 NAME
 
-    File::MimeInfo::SharedMimeInfoXML::Type - the type of a file
+    MIME::Detect::Type - the type of a file
 
 SYNOPSIS
 
