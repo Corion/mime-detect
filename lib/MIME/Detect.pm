@@ -614,6 +614,8 @@ L<File::Type> - inlines its database, unsupported since 2004?
 L<File::Type::WebImages> - if you're only interested in determining whether
 a file is an image or not
 
+L<MIME::Types> - for extension-based detection
+
 =head1 REPOSITORY
 
 The public repository of this module is 
