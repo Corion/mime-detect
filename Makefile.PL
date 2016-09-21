@@ -42,7 +42,8 @@ WriteMakefile1(
         },
     },
     
-    MIN_PERL_VERSION => '5.006',
+    # I saw some weirdo failures on 5.8.2,5.8.3 via CPANtesters
+    MIN_PERL_VERSION => '5.008_004',
 
     'LICENSE'=> 'perl',
 
@@ -59,7 +60,6 @@ WriteMakefile1(
     }, # e.g., Module::Name => 1.1
     TEST_REQUIRES => {
         'Test::More' => 0,
-        'Test::Base' => 0, # I know. Just for the tests ...
     },
 
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
