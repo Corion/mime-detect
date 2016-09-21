@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 12;
+use Test::More tests => 15;
 use MIME::Detect;
 my $mime = MIME::Detect->new();
 
@@ -38,6 +38,10 @@ some random gibberish
 qweoibvsjewrij
 PERL
 };
+
+is $perl->valid_extension($0), 't', ".t is a valid extension for Perl scripts";
+is $perl->valid_extension('test.pl'), 'pl', ".pl is a valid extension for Perl scripts";
+is $perl->valid_extension('test.exe'), undef, ".exe is not valid extension for Perl scripts";
 
 my $sevenZip = $mime->known_types->{'application/x-7z-compressed'};
 

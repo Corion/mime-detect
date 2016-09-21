@@ -166,7 +166,7 @@ sub reparse($self, @types) {
 sub fragment_to_type( $self, $frag ) {
     my $mime_type = $frag->getAttribute('type');
     my $comment = $self->xpc->findnodes('./x:comment', $frag);
-    my @globs = $self->xpc->findnodes('./x:glob', $frag);
+    my @globs = map { $_->getAttribute('pattern')} $self->xpc->findnodes('./x:glob', $frag);
     (my $superclass) = $self->xpc->findnodes('./x:sub-class-of',$frag);
     $superclass = $superclass->getAttribute('type')
         if $superclass;
@@ -409,23 +409,41 @@ has 'globs' => (
     default => sub {[]},
 );
 
+sub _get_extension( $e=undef ) {
+    if( defined $e ) { $e =~ s!^\*\.!! };
+    $e
+}
+
+=head2 C<< $type->extension >>
+
+    print $type->extension; # pl
+
+Returns the default extension for this mime type, without a separating
+dot or the glob.
+
+=cut
+
+sub extension($self) { 
+    _get_extension( $self->globs->[0] );
+}
+
 =head2 C<< $type->valid_extension( $fn ) >>
 
     print "$fn has the wrong extension"
         unless $type->valid_extension( $fn );
 
 Returns whether C<$fn> matches one of the extensions
-as specified in C<globs>.
+as specified in C<globs>. If there is a match, the extension is returned.
 
 =cut
 
 sub valid_extension( $self, $fn ) {
-    grep {
+    _get_extension((grep {
         my $g = $_;
-        $g =~ s![.]!\.!g;
+        $g =~ s![.]!\\.!g;
         $g =~ s!\*!.*!g;
         $fn =~ /$g$/;
-    } @{ $self->globs }
+    } @{ $self->globs })[0])
 }
 
 =head2 C<< $type->priority >>
