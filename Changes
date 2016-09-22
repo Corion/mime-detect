@@ -1,3 +1,7 @@
+0.03 201609xx
+    + Add 00-load.t to dump the modules loaded on this environment
+      Mostly used for easier debugging of minimal prerequisite versions
+
 0.02 20160921
     ! Also support \x -style hex escapes
       This fixes the detection of PNG images
