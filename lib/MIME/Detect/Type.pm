@@ -6,7 +6,7 @@ use feature 'signatures';
 no warnings 'experimental::signatures';
 
 use vars '$VERSION';
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 =head1 NAME
 

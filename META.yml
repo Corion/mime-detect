@@ -4,7 +4,6 @@ author:
   - 'Max Maischein <corion@cpan.org>'
 build_requires:
   ExtUtils::MakeMaker: '0'
-  Test::Base: '0'
   Test::More: '0'
 configure_requires:
   ExtUtils::MakeMaker: '0'
@@ -25,7 +24,7 @@ requires:
   Moo: '2'
   XML::LibXML: '1.70'
   if: '0'
-  perl: '5.006'
+  perl: 5.008_004
 resources:
   repository: git://github.com/Corion/mime-detect.git
-version: '0.01'
+version: '0.03'
