@@ -1,4 +1,4 @@
-0.03 201609xx
+0.03 20160922
     + Add 00-load.t to dump the modules loaded on this environment
       Mostly used for easier debugging of minimal prerequisite versions
 
