@@ -43,7 +43,8 @@ WriteMakefile1(
     },
     
     # I saw some weirdo failures on 5.8.2,5.8.3 via CPANtesters
-    MIN_PERL_VERSION => '5.008_004',
+    # but I attribute them to some version of Filter::Simple
+    MIN_PERL_VERSION => '5.006',
 
     'LICENSE'=> 'perl',
 

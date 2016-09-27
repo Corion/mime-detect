@@ -97,7 +97,7 @@ a file is an image or not
 # REPOSITORY
 
 The public repository of this module is 
-[http://github.com/Corion/filter-signatures](http://github.com/Corion/filter-signatures).
+[http://github.com/Corion/mime-detect](http://github.com/Corion/mime-detect).
 
 # SUPPORT
 
@@ -107,8 +107,8 @@ The public support forum of this module is
 # BUG TRACKER
 
 Please report bugs in this module via the RT CPAN bug queue at
-[https://rt.cpan.org/Public/Dist/Display.html?Name=Filter-signatures](https://rt.cpan.org/Public/Dist/Display.html?Name=Filter-signatures)
-or via mail to [filter-signatures-Bugs@rt.cpan.org](https://metacpan.org/pod/filter-signatures-Bugs@rt.cpan.org).
+[https://rt.cpan.org/Public/Dist/Display.html?Name=MIME-Detect](https://rt.cpan.org/Public/Dist/Display.html?Name=MIME-Detect)
+or via mail to [mime-detect-Bugs@rt.cpan.org](https://metacpan.org/pod/mime-detect-Bugs@rt.cpan.org).
 
 # AUTHOR
 

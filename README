@@ -100,7 +100,7 @@ SEE ALSO
 REPOSITORY
 
     The public repository of this module is
-    http://github.com/Corion/filter-signatures.
+    http://github.com/Corion/mime-detect.
 
 SUPPORT
 
@@ -109,8 +109,8 @@ SUPPORT
 BUG TRACKER
 
     Please report bugs in this module via the RT CPAN bug queue at
-    https://rt.cpan.org/Public/Dist/Display.html?Name=Filter-signatures or
-    via mail to filter-signatures-Bugs@rt.cpan.org.
+    https://rt.cpan.org/Public/Dist/Display.html?Name=MIME-Detect or via
+    mail to mime-detect-Bugs@rt.cpan.org.
 
 AUTHOR
 

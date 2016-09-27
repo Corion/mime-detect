@@ -8,7 +8,7 @@ use XML::LibXML;
 use MIME::Detect::Type;
 
 use vars '$VERSION';
-$VERSION = '0.03';
+$VERSION = '0.04';
 
 =head1 NAME
 
@@ -366,7 +366,7 @@ L<MIME::Types> - for extension-based detection
 =head1 REPOSITORY
 
 The public repository of this module is 
-L<http://github.com/Corion/filter-signatures>.
+L<http://github.com/Corion/mime-detect>.
 
 =head1 SUPPORT
 
@@ -376,8 +376,8 @@ L<https://perlmonks.org/>.
 =head1 BUG TRACKER
 
 Please report bugs in this module via the RT CPAN bug queue at
-L<https://rt.cpan.org/Public/Dist/Display.html?Name=Filter-signatures>
-or via mail to L<filter-signatures-Bugs@rt.cpan.org>.
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=MIME-Detect>
+or via mail to L<mime-detect-Bugs@rt.cpan.org>.
 
 =head1 AUTHOR
 
