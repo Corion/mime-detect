@@ -21,10 +21,11 @@ no_index:
 requires:
   Carp: '0'
   Fcntl: '0'
+  Filter::Simple: '0.91'
   Moo: '2'
   XML::LibXML: '1.70'
   if: '0'
   perl: 5.008_004
 resources:
   repository: git://github.com/Corion/mime-detect.git
-version: '0.03'
+version: '0.05'

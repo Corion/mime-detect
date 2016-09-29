@@ -1,3 +1,8 @@
+0.05 20160929
+    . Bump the prerequisite Filter::signatures to 0.05, which bumps
+      the required version of Filter::Simple to 0.91
+    . No code changes, no need to upgrade
+
 0.04 20160927
     + Correct the bug report address and repository, reported by Zaki Mughal
     . No code changes, no need to upgrade

@@ -24,7 +24,9 @@ regen_INSTALL($main_file);
 my @tests = map { glob $_ } 't/*.t', 't/*/*.t';
 
 # Do we need to load our backwards compatibility shim?
-my @signatures = eval 'use feature "signatures"; 1' ? () : ('Filter::signatures' => 0.04);
+my @signatures = eval 'use feature "signatures"; 1'
+                 ? ()
+                 : ('Filter::signatures' => 0.05);
 
 WriteMakefile1(
     NAME                => $module,
