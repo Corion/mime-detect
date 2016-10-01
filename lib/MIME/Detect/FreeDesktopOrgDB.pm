@@ -1,7 +1,7 @@
 package MIME::Detect::FreeDesktopOrgDB;
 use strict;
 use vars '$VERSION';
-$VERSION = '0.05';
+$VERSION = '0.06';
 
 =head1 NAME
 
