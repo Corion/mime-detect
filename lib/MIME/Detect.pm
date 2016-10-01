@@ -1,6 +1,6 @@
 package MIME::Detect;
 use Moo;
-use if $] < 5.022, 'Filter::signatures';
+use if $] < 5.020, 'Filter::signatures';
 use feature 'signatures';
 no warnings 'experimental::signatures';
 use Carp qw(croak);
