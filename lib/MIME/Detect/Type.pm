@@ -74,6 +74,12 @@ sub _get_extension( $e=undef ) {
     $e
 }
 
+sub _globmatch( $target, $glob ) {
+    $glob =~ s![.]!\\.!g;
+    $glob =~ s!\*!.*!g;
+    $target =~ /\A$glob\z/;
+}
+
 =head2 C<< $type->extension >>
 
     print $type->extension; # pl
@@ -93,16 +99,14 @@ sub extension($self) {
         unless $type->valid_extension( $fn );
 
 Returns whether C<$fn> matches one of the extensions
-as specified in C<globs>. If there is a match, the extension is returned.
+as specified in C<globs>. If there is a match, the extension is returned
+without dot.
 
 =cut
 
 sub valid_extension( $self, $fn ) {
     _get_extension((grep {
-        my $g = $_;
-        $g =~ s![.]!\\.!g;
-        $g =~ s!\*!.*!g;
-        $fn =~ /$g$/;
+        _globmatch( $fn, $_ )
     } @{ $self->globs })[0])
 }
 

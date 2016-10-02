@@ -61,7 +61,7 @@ METHODS
             print $type->mime_type, "\n";
         };
 
-    Returns the list of MIME types according to their likelyhood. The first
+    Returns the list of MIME types according to their priority. The first
     type is the most likely. The returned objects are of type
     MIME::Detect::Type.
 
@@ -73,6 +73,25 @@ METHODS
 
     Returns the most likely type of a file as MIME::Detect::Type. Returns
     undef if no file type can be determined.
+
+ $mime->mime_types_from_name
+
+        my $type = $mime->mime_types_from_name( 'some/file.ext' );
+        print $type->mime_type, "\n"
+            if $type;
+
+    Returns the list of MIME types for a file name based on the extension
+    according to their priority. The first type is the most likely. The
+    returned objects are of type MIME::Detect::Type.
+
+ $mime->mime_type_from_name
+
+        my $type = $mime->mime_type_from_name( 'some/file.ext' );
+        print $type->mime_type, "\n"
+            if $type;
+
+    Returns the most likely type of a file name as MIME::Detect::Type.
+    Returns undef if no file type can be determined.
 
 SEE ALSO
 

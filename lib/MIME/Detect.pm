@@ -61,6 +61,7 @@ has 'known_types' => (
     default => sub { {} },
 );
 
+# The XPath context we use
 has 'xpc' => (
     is => 'lazy',
     default => sub {
@@ -220,7 +221,7 @@ sub parse_rule( $self, $rule ) {
         print $type->mime_type, "\n";
     };
 
-Returns the list of MIME types according to their likelyhood.
+Returns the list of MIME types according to their priority.
 The first type is the most likely. The returned objects
 are of type L<MIME::Detect::Type>.
 
@@ -237,7 +238,6 @@ sub mime_types( $self, $file ) {
     $buffer->request(0,4096); # should be enough for most checks
 
     my @candidates;
-    # We should respect the priorities here...
     my $m = $self->known_types;
 
     # Already sorted by priority
@@ -261,13 +261,60 @@ sub mime_types( $self, $file ) {
     print $type->mime_type, "\n"
         if $type;
 
-Returns the most likely type of a file as L<MIME::Detect::Type>. Returns C<undef>
-if no file type can be determined.
+Returns the most likely type of a file as L<MIME::Detect::Type>. Returns
+C<undef> if no file type can be determined.
 
 =cut
 
 sub mime_type( $self, $file ) {
     ($self->mime_types($file))[0]
+}
+
+=head2 C<< $mime->mime_types_from_name >>
+
+    my $type = $mime->mime_types_from_name( 'some/file.ext' );
+    print $type->mime_type, "\n"
+        if $type;
+
+Returns the list of MIME types for a file name based on the extension
+according to their priority.
+The first type is the most likely. The returned objects
+are of type L<MIME::Detect::Type>.
+
+=cut
+
+sub mime_types_from_name( $self, $file ) {
+    my @candidates;
+    my $m = $self->known_types;
+
+    # Already sorted by priority
+    my @types = @{ $self->{types} };
+
+    # Let's just hope we don't have infinite subtype loops in the XML file
+    for my $k (@types) {
+        my $t = ref $k ? $k : $m->{ $k };
+        if( $t->valid_extension($file) ) {
+            #warn sprintf "*** found '%s'", $t->mime_type;
+            push @candidates, $m->{$t->mime_type};
+        };
+    };
+
+    @candidates;
+}
+
+=head2 C<< $mime->mime_type_from_name >>
+
+    my $type = $mime->mime_type_from_name( 'some/file.ext' );
+    print $type->mime_type, "\n"
+        if $type;
+
+Returns the most likely type of a file name as L<MIME::Detect::Type>. Returns
+C<undef> if no file type can be determined.
+
+=cut
+
+sub mime_type_from_name( $self, $file ) {
+    ($self->mime_types_from_name($file))[0]
 }
 
 package MIME::Detect::Buffer;

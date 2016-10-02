@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 15;
+use Test::More tests => 17;
 use MIME::Detect;
 my $mime = MIME::Detect->new();
 
@@ -42,6 +42,12 @@ PERL
 is $perl->valid_extension($0), 't', ".t is a valid extension for Perl scripts";
 is $perl->valid_extension('test.pl'), 'pl', ".pl is a valid extension for Perl scripts";
 is $perl->valid_extension('test.exe'), undef, ".exe is not valid extension for Perl scripts";
+
+my $pl = $mime->mime_type_from_name($0);
+is $pl, $perl, ".t files identify as Perl (test) files";
+
+my $foo = $mime->mime_type_from_name('/uploads/foo.pl');
+is $foo, $perl, "Nonexistent files identify as Perl files as well";
 
 my $sevenZip = $mime->known_types->{'application/x-7z-compressed'};
 

@@ -1,3 +1,9 @@
+0.07 to be released
+    . Fix the version-based prerequisites
+      There was one more mention of 5.022 in the code.
+    + Add ->mime_type_from_name() to also allow for name-based detection
+      of file types
+
 0.06 20161001
     . 5.20 also supports signatures natively so we don't need to load
       Filter::signatures there.
