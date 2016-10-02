@@ -28,4 +28,4 @@ requires:
   perl: 5.008_004
 resources:
   repository: git://github.com/Corion/mime-detect.git
-version: '0.05'
+version: '0.07'

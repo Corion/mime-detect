@@ -1,4 +1,4 @@
-0.07 to be released
+0.07 20191002
     . Fix the version-based prerequisites
       There was one more mention of 5.022 in the code.
     + Add ->mime_type_from_name() to also allow for name-based detection
