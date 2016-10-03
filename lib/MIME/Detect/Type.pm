@@ -75,7 +75,7 @@ sub _get_extension( $e=undef ) {
 }
 
 sub _globmatch( $target, $glob ) {
-    $glob =~ s![.]!\\.!g;
+    $glob =~ s!([.+\\])!\\$1!g;
     $glob =~ s!\*!.*!g;
     $target =~ /\A$glob\z/;
 }

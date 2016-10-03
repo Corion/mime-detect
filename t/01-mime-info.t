@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 17;
+use Test::More tests => 19;
 use MIME::Detect;
 my $mime = MIME::Detect->new();
 
@@ -48,6 +48,14 @@ is $pl, $perl, ".t files identify as Perl (test) files";
 
 my $foo = $mime->mime_type_from_name('/uploads/foo.pl');
 is $foo, $perl, "Nonexistent files identify as Perl files as well";
+
+my $hpp = $mime->mime_type_from_name('/uploads/foo.h++');
+
+if( !ok $hpp, "We identify h++ files") {
+    SKIP: { skip "We didn't even find a type for 'h++' files", 1 };
+} else {
+    is $hpp->mime_type, 'text/x-c++hdr', "We identify h++ files correctly";
+}
 
 my $sevenZip = $mime->known_types->{'application/x-7z-compressed'};
 
