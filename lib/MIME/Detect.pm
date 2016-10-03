@@ -8,7 +8,7 @@ use XML::LibXML;
 use MIME::Detect::Type;
 
 use vars '$VERSION';
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 =head1 NAME
 

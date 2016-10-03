@@ -1,3 +1,10 @@
+0.08 20161003
+    ! Identify h++ files correctly
+
+      On versions 5.10+, the "h++" was identified as a possessive RE quantifier,
+      which made the code silently misbehave. CPAN Testers++ for testing
+      with 5.8.x, where this part of the code failed.
+
 0.07 20191002
     . Fix the version-based prerequisites
       There was one more mention of 5.022 in the code.

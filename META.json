@@ -38,7 +38,7 @@
             "Moo" : "2",
             "XML::LibXML" : "1.70",
             "if" : "0",
-            "perl" : "5.008_004"
+            "perl" : "5.006"
          }
       },
       "test" : {
@@ -55,5 +55,5 @@
          "web" : "https://github.com/Corion/mime-detect"
       }
    },
-   "version" : "0.07"
+   "version" : "0.08"
 }
