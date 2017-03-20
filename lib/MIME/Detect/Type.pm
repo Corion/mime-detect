@@ -263,7 +263,7 @@ sub matches($self, $buffer, $rules = $self->rules) {
 =head1 REPOSITORY
 
 The public repository of this module is 
-L<http://github.com/Corion/filter-signatures>.
+L<http://github.com/Corion/mime-detect>.
 
 =head1 SUPPORT
 
