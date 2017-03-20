@@ -263,7 +263,7 @@ sub matches($self, $buffer, $rules = $self->rules) {
 =head1 REPOSITORY
 
 The public repository of this module is 
-L<http://github.com/Corion/filter-signatures>.
+L<http://github.com/Corion/mime-detect>.
 
 =head1 SUPPORT
 
@@ -273,8 +273,8 @@ L<https://perlmonks.org/>.
 =head1 BUG TRACKER
 
 Please report bugs in this module via the RT CPAN bug queue at
-L<https://rt.cpan.org/Public/Dist/Display.html?Name=Filter-signatures>
-or via mail to L<filter-signatures-Bugs@rt.cpan.org>.
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=MIME-Detect>
+or via mail to L<mime-detect-Bugs@rt.cpan.org>.
 
 =head1 AUTHOR
 
