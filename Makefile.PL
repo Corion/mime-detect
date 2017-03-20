@@ -66,7 +66,7 @@ WriteMakefile1(
     },
 
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
-    clean               => { FILES => 'HTTP-Request-FromTemplate-*' },
+    clean               => { FILES => 'MIME-Detect-*' },
 
     test            => { TESTS => join( ' ', @tests ) },
 );
