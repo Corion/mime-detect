@@ -3,14 +3,14 @@
    "author" : [
       "Max Maischein <corion@cpan.org>"
    ],
-   "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.98, CPAN::Meta::Converter version 2.142060",
+   "dynamic_config" : 0,
+   "generated_by" : "ExtUtils::MakeMaker version 7.34, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "perl_5"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
-      "version" : "2"
+      "version" : 2
    },
    "name" : "MIME-Detect",
    "no_index" : {
@@ -34,7 +34,7 @@
          "requires" : {
             "Carp" : "0",
             "Fcntl" : "0",
-            "Filter::Simple" : "0.91",
+            "Filter::signatures" : "0.15",
             "Moo" : "2",
             "XML::LibXML" : "1.70",
             "if" : "0",
@@ -51,9 +51,11 @@
    "resources" : {
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/Corion/mime-detect.git",
-         "web" : "https://github.com/Corion/mime-detect"
+         "url" : "git://github.com/Corion/MIME-Detect.git",
+         "web" : "https://github.com/Corion/MIME-Detect"
       }
    },
-   "version" : "0.08"
+   "version" : "0.09",
+   "x_serialization_backend" : "JSON::PP version 2.97001",
+   "x_static_install" : 1
 }
