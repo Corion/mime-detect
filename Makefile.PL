@@ -160,8 +160,8 @@ INSTALL
         $parser->parse_from_file($_[0]);
         my $readme_mkdn = <<STATUS . $parser->as_markdown;
 
-[![Travis Build Status](https://travis-ci.org/Corion/$distbase.svg?branch=master)](https://travis-ci.org/Corion/$distbase)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Corion/$distbase?branch=master&svg=true)](https://ci.appveyor.com/project/Corion/$distbase)
+[![Travis Build Status](https://travis-ci.org/Corion/\L$distbase.svg?branch=master)](https://travis-ci.org/Corion/\L$distbase)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Corion/\L$distbase?branch=master&svg=true)](https://ci.appveyor.com/project/Corion/\L$distbase)
 
 STATUS
         update_file( 'README.mkdn', $readme_mkdn );
