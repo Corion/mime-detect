@@ -52,7 +52,8 @@ my %module = (
         'Filter::signatures' => 0.15,
     },
     TEST_REQUIRES => {
-        'Test::More' => 0,
+        'Test::More'   => 0,
+        'Data::Dumper' => 0,
     },
 
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
@@ -70,7 +71,7 @@ sub get_module_info { %module }
 if( ! caller ) {
     # I should maybe use something like Shipwright...
     regen_README($main_file);
-    #regen_EXAMPLES();
+    regen_EXAMPLES() if -d 'examples';
     WriteMakefile1(get_module_info);
 };
 
@@ -159,12 +160,6 @@ INSTALL
 [![Travis Build Status](https://travis-ci.org/Corion/$distbase.svg?branch=master)](https://travis-ci.org/Corion/$distbase)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/Corion/$distbase?branch=master&svg=true)](https://ci.appveyor.com/project/Corion/$distbase)
 
-CONTRIBUTING
-
-See lib/WWW/Mechanize/Chrome/Contributing.pod
-
-[Google Keep Extraction](https://github.com/Corion/WWW-Mechanize-Chrome/raw/master/demo/keep-export-demo.mp4)
-
 STATUS
         update_file( 'README.mkdn', $readme_mkdn );
     };
@@ -198,11 +193,12 @@ sub regen_EXAMPLES {
     if ($perl =~/\s/) {
         $perl = qq{"$perl"};
     };
+    (my $example_file = $main_file) =~ s!\.pm$!/Examples.pm!;
     my $examples = `$perl -w examples/gen_examples_pod.pl`;
     if ($examples) {
-        warn "(Re)Creating lib/WWW/Mechanize/Chrome/Examples.pm\n";
+        warn "(Re)Creating $example_file\n";
         $examples =~ s/\r\n/\n/g;
-        update_file( 'lib/WWW/Mechanize/Chrome/Examples.pm', $examples );
+        update_file( $example_file, $examples );
     };
 };
 
