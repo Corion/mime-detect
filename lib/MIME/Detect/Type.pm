@@ -5,8 +5,7 @@ use if $] < 5.020, 'Filter::signatures';
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-use vars '$VERSION';
-$VERSION = '0.09';
+our $VERSION = '0.09';
 
 =head1 NAME
 
