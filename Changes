@@ -1,4 +1,5 @@
 0.10 to-be-released
+    * Corrected links to bug tracker etc, thanks to RENEEB
     * Minor distribution cleanup
     * Minor module cleanup, remove vars.pm
     * Switch to File::ShareDir for storing the common data
