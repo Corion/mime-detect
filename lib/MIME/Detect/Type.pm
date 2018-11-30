@@ -145,6 +145,11 @@ has 'superclass' => (
     default => undef,
 );
 
+sub parse_num( $num ) {
+    $num =~ /^0x/ and return hex $num;
+    return 0+$num
+}
+
 sub BUILD($self, $args) {
     # Preparse the rules here:
     for my $rule (@{ $args->{rules} }) {
@@ -167,25 +172,25 @@ sub BUILD($self, $args) {
                        }xge;
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'little32' ) {
-            $value = pack 'V', hex($rule->{value});
+            $value = pack 'V', parse_num($rule->{value});
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'little16' ) {
-            $value = pack 'v', hex($rule->{value});
+            $value = pack 'v', parse_num($rule->{value});
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'big32' ) {
-            $value = pack 'N', hex($rule->{value});
+            $value = pack 'N', parse_num($rule->{value});
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'big16' ) {
-            $value = pack 'n', hex($rule->{value});
+            $value = pack 'n', parse_num($rule->{value});
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'host16' ) {
-            $value = pack 'S', hex($rule->{value});
+            $value = pack 'S', parse_num($rule->{value});
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'host32' ) {
-            $value = pack 'L', hex($rule->{value});
+            $value = pack 'L', parse_num($rule->{value});
 
         } elsif( ref $rule eq 'HASH' and $rule->{type} eq 'byte' ) {
-            $value = pack 'c', hex($rule->{value});
+            $value = pack 'c', parse_num($rule->{value});
 
         } else {
             die "Unknown rule type '$rule->{type}'";
