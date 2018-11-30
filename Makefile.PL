@@ -48,7 +48,6 @@ my %module = (
         'Moo'                => 2,
         'Carp'               => 0,
         'Fcntl'              => 0,
-        'if'                 => 0,
         'Filter::signatures' => 0.15,
     },
     TEST_REQUIRES => {

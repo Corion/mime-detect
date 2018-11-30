@@ -1,7 +1,7 @@
 package MIME::Detect::Type;
 use strict;
 use Moo;
-use if $] < 5.020, 'Filter::signatures';
+use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 

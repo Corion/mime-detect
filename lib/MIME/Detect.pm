@@ -1,6 +1,6 @@
 package MIME::Detect;
 use Moo;
-use if $] < 5.020, 'Filter::signatures';
+use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 use Carp qw(croak);
@@ -317,8 +317,8 @@ sub mime_type_from_name( $self, $file ) {
 }
 
 package MIME::Detect::Buffer;
-use Moo;
-use if $] < 5.020, 'Filter::signatures';
+use Moo 2;
+use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 use Fcntl 'SEEK_SET';

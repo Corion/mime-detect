@@ -3,6 +3,7 @@ abstract: 'MIME file type identification'
 author:
   - 'Max Maischein <corion@cpan.org>'
 build_requires:
+  Data::Dumper: '0'
   ExtUtils::MakeMaker: '0'
   Test::More: '0'
 configure_requires:
@@ -24,7 +25,6 @@ requires:
   Filter::signatures: '0.15'
   Moo: '2'
   XML::LibXML: '1.70'
-  if: '0'
   perl: '5.006'
 resources:
   repository: git://github.com/Corion/MIME-Detect.git
