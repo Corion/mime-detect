@@ -1,6 +1,6 @@
 package MIME::Detect::Type;
 use strict;
-use Moo;
+use Moo 2;
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
