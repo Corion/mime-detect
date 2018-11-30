@@ -51,6 +51,7 @@ my %module = (
         'Carp'               => 0,
         'Fcntl'              => 0,
         'Filter::signatures' => 0.15,
+        'File::ShareDir'     => 0,
     },
     TEST_REQUIRES => {
         'Test::More'   => 0,
