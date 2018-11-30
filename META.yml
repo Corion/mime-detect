@@ -5,6 +5,7 @@ author:
 build_requires:
   Data::Dumper: '0'
   ExtUtils::MakeMaker: '0'
+  File::ShareDir::Install: '0'
   Test::More: '0'
 configure_requires:
   ExtUtils::MakeMaker: '0'

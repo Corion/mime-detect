@@ -22,7 +22,8 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "0"
+            "ExtUtils::MakeMaker" : "0",
+            "File::ShareDir::Install" : "0"
          }
       },
       "configure" : {

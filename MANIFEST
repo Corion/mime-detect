@@ -3,8 +3,6 @@ Changes
 INSTALL
 lib/MIME/Detect.pm
 lib/MIME/Detect/FreeDesktopOrgDB.pm
-lib/MIME/Detect/FreeDesktopOrgDB/mime-info/COPYING
-lib/MIME/Detect/FreeDesktopOrgDB/mime-info/freedesktop.org.xml
 lib/MIME/Detect/Type.pm
 LICENSE
 Makefile.PL
@@ -14,6 +12,8 @@ META.json
 META.yml
 README
 README.mkdn
+share/mime-info/COPYING
+share/mime-info/freedesktop.org.xml
 t/00-load.t
 t/01-mime-info.t
 t/02-identify.t

@@ -2,6 +2,7 @@
 
 use strict;
 use ExtUtils::MakeMaker qw(WriteMakefile);
+use File::ShareDir::Install;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
@@ -40,7 +41,8 @@ my %module = (
 
     PL_FILES            => {},
     BUILD_REQUIRES => {
-        'ExtUtils::MakeMaker' => 0,
+        'ExtUtils::MakeMaker'     => 0,
+        'File::ShareDir::Install' => 0,
     },
 
     PREREQ_PM => {
@@ -71,6 +73,7 @@ if( ! caller ) {
     # I should maybe use something like Shipwright...
     regen_README($main_file);
     regen_EXAMPLES() if -d 'examples';
+    install_share dist => 'share';
     WriteMakefile1(get_module_info);
 };
 
@@ -221,3 +224,6 @@ sub update_file {
         };
     };
 }
+
+package MY;
+use File::ShareDir::Install qw(postamble);

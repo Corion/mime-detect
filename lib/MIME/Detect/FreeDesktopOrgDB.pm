@@ -1,5 +1,6 @@
 package MIME::Detect::FreeDesktopOrgDB;
 use strict;
+use File::ShareDir 'dist_file';
 our $VERSION = '0.09';
 
 =head1 NAME
@@ -30,7 +31,7 @@ with this module.
 =cut
 
 sub get_xml {
-    (my $xml_name = __FILE__) =~ s!\.pm$!/mime-info/freedesktop.org.xml!;
+    (my $xml_name = dist_file('MIME-Detect', 'mime-info/freedesktop.org.xml'));
     open my $fh, '<', $xml_name
         or die "Couldn't read '$xml_name': $!";
     binmode $fh;
