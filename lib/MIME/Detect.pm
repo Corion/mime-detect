@@ -7,7 +7,7 @@ use Carp qw(croak);
 use XML::LibXML;
 use MIME::Detect::Type;
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 =head1 NAME
 

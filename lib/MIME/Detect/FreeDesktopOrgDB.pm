@@ -1,7 +1,7 @@
 package MIME::Detect::FreeDesktopOrgDB;
 use strict;
 use File::ShareDir 'dist_file';
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 
 =head1 NAME
 

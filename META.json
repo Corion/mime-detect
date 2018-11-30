@@ -56,7 +56,6 @@
          "web" : "https://github.com/Corion/MIME-Detect"
       }
    },
-   "version" : "0.09",
-   "x_serialization_backend" : "JSON::PP version 2.97001",
-   "x_static_install" : 1
+   "version" : "0.10",
+   "x_serialization_backend" : "JSON::PP version 2.97001"
 }
