@@ -6,6 +6,7 @@ lib/MIME/Detect/FreeDesktopOrgDB.pm
 lib/MIME/Detect/FreeDesktopOrgDB/mime-info/COPYING
 lib/MIME/Detect/FreeDesktopOrgDB/mime-info/freedesktop.org.xml
 lib/MIME/Detect/Type.pm
+LICENSE
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
