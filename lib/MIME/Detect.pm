@@ -179,7 +179,7 @@ sub fragment_to_type( $self, $frag ) {
     if( $magic ) {
         $priority = $magic->getAttribute('priority');
         $priority = 50 if !defined $priority;
-        @rules = grep { $_->nodeType != 3 } # exclude text nodes
+        @rules = grep { $_->nodeType == XML_ELEMENT_NODE } # exclude text nodes and other stuff
                     $magic->childNodes;
         for my $rule (@rules) {
             $rule = $self->parse_rule( $rule );
@@ -202,7 +202,8 @@ sub parse_rule( $self, $rule ) {
     my $offset = $rule->getAttribute('offset');
     my $type = $rule->getAttribute('type');
 
-    my @and = map { $self->parse_rule( $_ ) } grep { $_->nodeType != 3 } $rule->childNodes;
+    my @and = map  { $self->parse_rule( $_ ) }
+              grep { $_->nodeType == XML_ELEMENT_NODE } $rule->childNodes;
     my $and = @and ? \@and : undef;
 
     return {
