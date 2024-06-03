@@ -81,12 +81,12 @@ my %module = (
 sub get_module_info { %module }
 
 if( ! caller ) {
+    install_share dist => 'share';
     # I should maybe use something like Shipwright...
     my $mm = WriteMakefile1(get_module_info);
     my $version = $mm->parse_version($main_file);
     regen_README($main_file, $version);
     regen_EXAMPLES() if -d 'examples';
-    install_share dist => 'share';
 };
 
 1;
