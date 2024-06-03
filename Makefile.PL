@@ -35,7 +35,7 @@ my %module = (
         #x_static_install => 1, # we are pure Perl and don't do anything fancy
     },
 
-    MIN_PERL_VERSION => '5.006',
+    MIN_PERL_VERSION => '5.020', # I use signatures
 
     'LICENSE'=> 'perl',
 
@@ -50,7 +50,6 @@ my %module = (
         'Moo'                => 2,
         'Carp'               => 0,
         'Fcntl'              => 0,
-        'Filter::signatures' => 0.15,
         'File::ShareDir'     => 0,
     },
     TEST_REQUIRES => {
