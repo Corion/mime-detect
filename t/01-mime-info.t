@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 19;
+use Test::More tests => 20;
 use MIME::Detect;
 my $mime = MIME::Detect->new();
 
@@ -31,14 +31,24 @@ if( !ok $superclass, "We have a superclass") {
     SKIP: { skip "We didn't even find a superclass", 1 };
 } else {
     is $perl->superclass->mime_type, 'application/x-executable', "It's an executable file";
-    
-    ok $perl->matches(<<'PERL'), "We match some fake PERL file";
-#!perl -w
+
+    ok $perl->matches(<<'PERL'), "We match some fake Perl file";
+#!/usr/bin/perl -w
 use strict;
 some random gibberish
 qweoibvsjewrij
 PERL
 };
+
+{
+    open(my $fh, \<<'PERL');
+#!perl -w
+use strict;
+some random gibberish
+qweoibvsjewrij
+PERL
+    ok $mime->mime_types($fh), "We match the second rule for some fake Perl file";
+}
 
 is $perl->valid_extension($0), 't', ".t is a valid extension for Perl scripts";
 is $perl->valid_extension('test.pl'), 'pl', ".pl is a valid extension for Perl scripts";
