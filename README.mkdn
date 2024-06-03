@@ -1,6 +1,7 @@
 
-[![Travis Build Status](https://travis-ci.org/Corion/mime-detect.svg?branch=master)](https://travis-ci.org/corion/mime-detect)
-[![appveyor build status](https://ci.appveyor.com/api/projects/status/github/corion/mime-detect?branch=master&svg=true)](https://ci.appveyor.com/project/corion/mime-detect)
+[![Windows](https://github.com/Corion/MIME-Detect/workflows/windows/badge.svg)](https://github.com/Corion/MIME-Detect/actions?query=workflow%3Awindows)
+[![MacOS](https://github.com/Corion/MIME-Detect/workflows/macos/badge.svg)](https://github.com/Corion/MIME-Detect/actions?query=workflow%3Amacos)
+[![Linux](https://github.com/Corion/MIME-Detect/workflows/linux/badge.svg)](https://github.com/Corion/MIME-Detect/actions?query=workflow%3Alinux)
 
 # NAME
 
