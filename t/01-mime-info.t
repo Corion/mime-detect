@@ -4,22 +4,23 @@ use Test::More tests => 19;
 use MIME::Detect;
 my $mime = MIME::Detect->new();
 
-my $pgp = $mime->known_types->{'application/pgp-signature'};
+my $mbox = $mime->known_types->{'application/mbox'};
 
-ok $pgp, "We find a type for 'application/pgp-signature'";
-my $superclass = $pgp->superclass;
+ok $mbox, "We find a type for 'application/mbox'";
+my $superclass = $mbox->superclass;
 if( !ok $superclass, "We have a superclass") {
     use Data::Dumper;
-    diag Dumper $pgp;
+    diag Dumper $mbox;
     SKIP: { skip "We didn't even find a superclass", 1 };
 } else {
-    is $pgp->superclass->mime_type, 'text/plain', "It's a text file";
-    
-    ok $pgp->matches(<<'PGP'), "We match some fake PGP file";
------BEGIN PGP SIGNATURE-----
-some random gibberish
-qweoibvsjewrij
-PGP
+    is $mbox->superclass->mime_type, 'text/plain', "It's a text file";
+
+    ok $mbox->matches(<<'MBOX'), "We match some fake mbox file";
+From me@example.com
+
+Hello Friend!
+
+MBOX
 };
 
 my $perl = $mime->known_types->{'application/x-perl'};
