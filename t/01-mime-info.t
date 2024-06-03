@@ -41,7 +41,7 @@ PERL
 };
 
 {
-    open(my $fh, \<<'PERL');
+    open(my $fh, '<', \<<'PERL');
 #!perl -w
 use strict;
 some random gibberish
