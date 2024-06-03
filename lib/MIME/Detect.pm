@@ -105,7 +105,6 @@ sub read_database( $self, %options ) {
     if( ! exists $options{ xml }) {
         $options{ xml } = 'MIME::Detect::FreeDesktopOrgDB';
     };
-    
     if( $options{ xml } and not ref $options{ xml }) {
         # Load the class name
         if( !eval "require $options{ xml }; 1") {
@@ -113,7 +112,7 @@ sub read_database( $self, %options ) {
         };
         $options{ xml } = $options{ xml }->get_xml;
     };
-    
+
     my @types = map {
         my @args = ref $_ eq 'SCALAR' ? (string   => $_) :
                    ref $_             ? (IO       => $_) :
@@ -370,7 +369,7 @@ sub request($self,$offset,$length) {
                 $updated = 1;
             };
         }
-        
+
         # Setting all three in one go would be more object-oriented ;)
         if( $updated ) {
             $self->offset($offset);
@@ -412,7 +411,7 @@ L<MIME::Types> - for extension-based detection
 
 =head1 REPOSITORY
 
-The public repository of this module is 
+The public repository of this module is
 L<http://github.com/Corion/mime-detect>.
 
 =head1 SUPPORT
